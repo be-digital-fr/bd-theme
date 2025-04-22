@@ -12,8 +12,8 @@ import { MobileNavigation } from './mobile-navigation';
 
 // Types and schemas
 import { NavigationLinksSchema } from './types';
-/* import { AuthTrigger } from "@/infrastructure/auth/interface";
-import { SearchTrigger } from "@/features/search-product/components"; */
+/* import { AuthTrigger } from "@/infrastructure/auth/interface";*/
+import { SearchTrigger } from "@/features/search-product/components"; 
 
 /**
  * Navigation links configuration with SEO-friendly labels and descriptions
@@ -80,8 +80,7 @@ export default function Header() {
               className="flex items-center gap-4"
               aria-label="Actions utilisateur">
               {/* Search Trigger */}
-              {/* <SearchTrigger /> */}
-              SEARCH
+              <SearchTrigger />
               {/* Authentication Trigger */}
               <div aria-label="Authentification">
                 {/* <AuthTrigger /> */}
