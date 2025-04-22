@@ -1,7 +1,7 @@
-import { SignedIn, SignedOut, UserButton } from "@daveyplate/better-auth-ui";
-import { Settings, User } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { SignedIn, SignedOut, UserButton } from '@daveyplate/better-auth-ui';
+import { Settings, User } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 export default function AuthTrigger() {
   return (
@@ -11,8 +11,8 @@ export default function AuthTrigger() {
           disableDefaultLinks
           additionalLinks={[
             {
-              label: "Settings",
-              href: "/profile",
+              label: 'Settings',
+              href: '/profile',
               icon: <Settings />,
             },
           ]}
