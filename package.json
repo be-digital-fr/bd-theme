@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "env:dev": "dotenv -e .env.development",
+    "env:prod": "dotenv -e .env.production",
+    "prisma:migrate": "pnpm env:dev prisma migrate dev",
+    "prisma:studio": "pnpm env:dev prisma studio",
+    "prisma:generate": "pnpm env:dev prisma generate",
+    "prisma:seed": "pnpm env:dev prisma db seed"
   },
   "dependencies": {
     "@daveyplate/better-auth-ui": "^1.5.2",
@@ -37,13 +43,19 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^8.0.0",
     "prisma": "^6.6.0",
     "react-icons": "^5.5.0",
     "tailwindcss": "^4",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed/index.ts"
   }
 }
