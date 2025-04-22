@@ -12,7 +12,7 @@ import { MobileNavigation } from './mobile-navigation';
 
 // Types and schemas
 import { NavigationLinksSchema } from './types';
-/* import { AuthTrigger } from "@/infrastructure/auth/interface";*/
+import { AuthTrigger } from "@/infrastructure/better-auth/interface";
 import { SearchTrigger } from "@/features/search-product/components"; 
 
 /**
@@ -83,8 +83,7 @@ export default function Header() {
               <SearchTrigger />
               {/* Authentication Trigger */}
               <div aria-label="Authentification">
-                {/* <AuthTrigger /> */}
-                AUTH
+                <AuthTrigger />
               </div>
               {/* Shopping Cart */}
               <div className="relative">

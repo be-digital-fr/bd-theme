@@ -1,0 +1,1 @@
+export { default as AuthTrigger } from "./auth-trigger";
