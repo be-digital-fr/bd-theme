@@ -2,6 +2,9 @@ import React, { PropsWithChildren } from 'react';
 import { Provider } from '@/app/_components/shared';
 import * as z from '@zod/mini';
 
+// Style
+import './globals.css';
+
 const RootLayoutSchema = z.object({
   modal: z.custom<React.ReactNode>(),
 });
