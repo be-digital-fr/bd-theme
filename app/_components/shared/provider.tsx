@@ -1,17 +1,21 @@
-import React, { PropsWithChildren } from 'react';
-import { Toaster as ToasterReactHotToast } from 'react-hot-toast';
+import React, { PropsWithChildren } from "react";
+import { Toaster as ToasterReactHotToast } from "react-hot-toast";
 
-import { Toaster } from '@/app/_components/ui';
-import { AuthProvider } from '@/infrastructure/better-auth/provider';
+// Components
+import { Toaster } from "@/app/_components/ui";
+import { AuthProvider } from "@/infrastructure/better-auth/provider";
+import { ReactQueryProvider } from "@/infrastructure/react-query";
 
 export default function Provider({ children }: PropsWithChildren) {
   return (
-    <AuthProvider>
-      {children}
+    <ReactQueryProvider>
+      <AuthProvider>
+        {children}
 
-      {/* Toaster */}
-      <Toaster />
-      <ToasterReactHotToast />
-    </AuthProvider>
+        {/* Toaster */}
+        <Toaster />
+        <ToasterReactHotToast />
+      </AuthProvider>
+    </ReactQueryProvider>
   );
 }

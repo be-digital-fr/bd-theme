@@ -24,6 +24,7 @@
     "@radix-ui/react-separator": "^1.1.4",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tabs": "^1.1.9",
+    "@tanstack/react-query": "^5.74.4",
     "@uidotdev/usehooks": "^2.4.1",
     "@zod/mini": "4.0.0-beta.20250420T053007",
     "better-auth": "^1.2.7",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@tanstack/eslint-plugin-query": "^5.73.3",
     "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
