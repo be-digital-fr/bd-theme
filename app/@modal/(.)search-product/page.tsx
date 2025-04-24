@@ -1,13 +1,16 @@
 import { Suspense } from 'react';
 import { ProductSearch } from '@/features/search-product/components';
 import CustomLoader from '@/app/_components/ui/custom-loader';
+import ModalDialogContainer from '../_components/dialog-container';
 
 export default function SearchProductPage() {
   return (
-    <div className="container mx-auto p-4">
-      <Suspense fallback={<CustomLoader />}>
+    <Suspense fallback={<CustomLoader />}>
+      <ModalDialogContainer
+        ariaLabel="Recherche de produits"
+        ariaDescription="Vous pouvez rechercher un produit par nom ou par description">
         <ProductSearch />
-      </Suspense>
-    </div>
+      </ModalDialogContainer>
+    </Suspense>
   );
 }
