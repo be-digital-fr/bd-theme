@@ -7,6 +7,7 @@ export default function SearchProductPage() {
   return (
     <Suspense fallback={<CustomLoader />}>
       <ModalDialogContainer
+      
         ariaLabel="Recherche de produits"
         ariaDescription="Vous pouvez rechercher un produit par nom ou par description">
         <ProductSearch />

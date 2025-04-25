@@ -1,8 +1,9 @@
 /**
  * External library imports
  */
-import { Search } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/app/_components/ui';
+import { Search } from 'lucide-react';
+import Link from 'next/link';
 
 /**
  * SearchTrigger Component
@@ -16,8 +17,9 @@ import Link from "next/link";
  */
 export default function SearchTrigger() {
   return (
-    <Link href="/search-product">
-      <Search className="w-5 h-5" aria-hidden="true" />
-    </Link>
+      <Link href="/search-product">
+        <Search className="w-5 h-5" aria-hidden="true" />
+        <span className="sr-only">Search</span>
+      </Link>
   );
 }

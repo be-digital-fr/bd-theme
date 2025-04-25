@@ -12,7 +12,8 @@
     "prisma:migrate": "pnpm env:dev prisma migrate dev",
     "prisma:studio": "pnpm env:dev prisma studio",
     "prisma:generate": "pnpm env:dev prisma generate",
-    "prisma:seed": "pnpm env:dev prisma db seed"
+    "prisma:seed": "pnpm env:dev prisma db seed",
+    "test": "pnpm exec playwright test --ui"
   },
   "dependencies": {
     "@daveyplate/better-auth-ui": "^1.5.2",
@@ -44,6 +45,7 @@
     "tw-animate-css": "^1.2.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4",
     "@tanstack/eslint-plugin-query": "^5.73.3",
     "@types/node": "^20.17.30",
