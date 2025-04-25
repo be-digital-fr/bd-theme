@@ -16,7 +16,7 @@ export default function RootLayout({
   modal,
 }: PropsWithChildren<RootLayoutProps>) {
   return (
-    <html>
+    <html lang="en">
       <head />
       <body>
         <Provider>
