@@ -6,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-truculenta: var(--font-truculenta);
-  --font-asapCondensed: var(--font-asap-condensed);
+  --font-dm-sans: var(--font-dm-sans);
+  --font-poppins: var(--font-poppins);
 
   --color-lightgreen: hsl(84, 38%, 80%);
   --color-orange: #F6DAA7;
@@ -137,6 +137,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground ;
+    @apply bg-background text-foreground font-dm-sans;
   }
 }

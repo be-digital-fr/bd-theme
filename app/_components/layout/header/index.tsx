@@ -71,7 +71,7 @@ export default function Header() {
             </section>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:block ">
+            <div className="hidden md:block ">
               <Navigation links={navigationLinks} />
             </div>
 
@@ -100,7 +100,7 @@ export default function Header() {
                 </Link>
               </div>
               {/* Mobile Navigation Menu */}
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <MobileNavigation links={navigationLinks} />
               </div>
             </section>

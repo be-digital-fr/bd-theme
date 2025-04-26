@@ -66,7 +66,7 @@ export function MobileNavigation({ links }: MobileNavigationProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="lg:hidden bg-primary text-primary-foreground hover:bg-primary/80"
+          className="lg:hidden bg-primary text-primary-foreground hover:bg-primary/80 rounded-full"
           aria-label="Ouvrir le menu de navigation"
           aria-expanded={open}
         >

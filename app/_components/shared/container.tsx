@@ -29,7 +29,7 @@ export default function Container({
   return (
     <Component
       className={cn(
-        'mx-auto px-4 sm:px-6 w-full',
+        'mx-auto px-4 sm:px-6 lg:px-28 w-full',
         {
           'max-w-screen-sm': maxWidth === 'sm',
           'max-w-screen-md': maxWidth === 'md',
