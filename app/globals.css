@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 @source "../node_modules/@daveyplate/better-auth-ui";
@@ -10,9 +10,8 @@
   --font-poppins: var(--font-poppins);
 
   --color-lightgreen: hsl(84, 38%, 80%);
-  --color-orange: #F6DAA7;
+  --color-orange: #f6daa7;
 }
-
 
 @theme inline {
   --color-background: var(--background);
@@ -61,7 +60,8 @@
 :root {
   --background: oklch(0.96 0.0159 102.83);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  /*  --card: oklch(1 0 0); */
+  --card: oklch(0.91 0.0227 104.1);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);

@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '../_components/ui';
-import { Container } from '../_components/shared';
+import { Button, Separator } from '../_components/ui';
+import { Container, FeatureWithIcon } from '../_components/shared';
 import { cn } from '../_lib';
 
 export const metadata: Metadata = {
@@ -85,7 +85,44 @@ export default function Home() {
           </Container>
         </section>
 
-        
+        {/* Features section */}
+        <Container className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-10">
+          <FeatureWithIcon
+            icon="/icons/fast.svg"
+            title="Fast & Reliable Delivery"
+          />
+          <FeatureWithIcon
+            icon="/icons/secure.svg"
+            title="Secure Multiple Payment"
+            className="md:hidden"
+          />
+          <FeatureWithIcon
+            icon="/icons/secure.svg"
+            title="Secure Payment"
+            className="hidden md:flex"
+          />
+          <FeatureWithIcon
+            icon="/icons/healthy.svg"
+            title="Healthy & Fresh Ingredients"
+          />
+          <FeatureWithIcon
+            icon="/icons/click-and-collect.svg"
+            title="Click & Collect"
+          />
+          <FeatureWithIcon
+            icon="/icons/card.svg"
+            title="Multiple Payment"
+            className="hidden md:flex"
+          />
+        </Container>
+
+        {/* Separator */}
+        <Separator className="my-10 bg-card data-[orientation=horizontal]:h-[0.1rem]" />
+
+        {/* Testimonials section */}
+        <Container>
+          <h2 className="text-2xl font-bold">Testimonials</h2>
+        </Container>
       </main>
     </>
   );
