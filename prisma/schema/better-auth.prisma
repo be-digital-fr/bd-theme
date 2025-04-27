@@ -1,4 +1,3 @@
-
 model User {
   id            String    @id
   name          String
@@ -9,6 +8,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  favorites     Favorite[]
 
   @@unique([email])
   @@map("user")
