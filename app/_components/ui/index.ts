@@ -1,3 +1,8 @@
+
+// Custom components
+export { default as DefaultCard } from './product-cards/default-card';
+
+// Shadcn UI components
 export * from './button';
 export * from './card';
 export * from './input';

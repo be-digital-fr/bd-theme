@@ -23,7 +23,7 @@ const FeatureWithIcon = ({
     <div className="bg-card rounded-lg p-2">
       <Image src={icon} alt={title} width={40} height={40} sizes=" 40px" />
     </div>
-    <span className="text-sm text-primary text-center">
+    <span className="text-sm text-primary text-center md:max-w-40">
       {title}
     </span>
     {description && (
