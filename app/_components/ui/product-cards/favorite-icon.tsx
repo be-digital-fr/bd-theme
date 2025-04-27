@@ -7,6 +7,7 @@ import { Button } from '../button';
 import { authClient } from '@/infrastructure/better-auth/lib';
 import Link from 'next/link';
 import { cn } from '@/app/_lib';
+import { toggleFavorite } from '@/app/action/favorite';
 
 interface FavoriteButtonProps {
   productId: string;
@@ -21,12 +22,18 @@ export const FavoriteButton = ({
   const [showDialog, setShowDialog] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!session?.user) {
       setShowDialog(true);
       return;
     }
-    console.log('add to favorite');
+    const res = await toggleFavorite({ productId, isFavorite: isFavorite });
+    console.log('====================================');
+    console.log(res);
+    console.log('====================================');
+    if (res.success) {
+      setIsFavorite(res.isFavorite);
+    }
   };
 
   return (

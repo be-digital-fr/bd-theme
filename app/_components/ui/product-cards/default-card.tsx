@@ -16,7 +16,7 @@ export default function DefaultCard() {
           />
         </div>
 
-        <FavoriteButton productId="1" className="absolute top-2 right-2" />
+        <FavoriteButton productId="cm9t4wsyg0002uutn6dzcgw1y" className="absolute top-2 right-2" />
       </CardContent>
     </Card>
   );
