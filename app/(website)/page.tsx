@@ -19,9 +19,17 @@ type Product = Prisma.ProductGetPayload<{
 }>;
 
 export default async function Home() {
-  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`);
-  const productsData = await products.json();
-  console.log(productsData);
+  const [productsResponse, vegetarianProductsResponse] = await Promise.all([
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`),
+  ]);
+
+  const [productsData, vegetarianProductsData] = await Promise.all([
+    productsResponse.json(),
+    vegetarianProductsResponse.json(),
+  ]);
+
+  console.log(vegetarianProductsData);
   return (
     <>
       {/* Skip link for accessibility */}
@@ -124,11 +132,21 @@ export default async function Home() {
         {/* Separator */}
         <Separator className="my-10 bg-card data-[orientation=horizontal]:h-[0.1rem]" />
 
-        {/* Testimonials section */}
+        {/* Best sellers section */}
         <Container className="space-y-10">
           <SectionHeading title="Explore Top Restaurants & Trending Meals" link="/menu" />
 
           <ProductCarousel products={productsData} />
+        </Container>
+
+        {/* Vegetarian section */}
+        <Container className="space-y-10">
+          <SectionHeading
+            title="Explore Top Vegetarian Meals"
+            link="/menu?categoryName=vegetarian"
+          />
+
+          <ProductCarousel products={vegetarianProductsData?.products || []} />
         </Container>
       </main>
     </>

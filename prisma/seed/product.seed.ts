@@ -2,14 +2,16 @@ import { PrismaClient } from '@/generated/prisma';
 
 const prisma = new PrismaClient();
 
-const BURGER_IMAGE =
-'/images/products/pizza.png';
+const BURGER_IMAGE = '/images/products/pizza.png';
+const VEGGIE_IMAGE = '/images/products/veggie.png';
 
 export default async function productSeed() {
   // Nettoyer la base de données existante
   await prisma.orderItem.deleteMany();
   await prisma.extra.deleteMany();
   await prisma.variant.deleteMany();
+  await prisma.favorite.deleteMany();
+  await prisma.review.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
@@ -19,6 +21,14 @@ export default async function productSeed() {
       name: 'Burgers',
       description: 'Nos délicieux burgers faits maison',
       image: BURGER_IMAGE,
+    },
+  });
+
+  const vegetarianCategory = await prisma.category.create({
+    data: {
+      name: 'Vegetarian',
+      description: 'Nos délicieuses options végétariennes',
+      image: VEGGIE_IMAGE,
     },
   });
 
@@ -62,8 +72,26 @@ export default async function productSeed() {
     }
   };
 
-  // Créer les produits
-  const products = [
+  // Créer les extras végétariens
+  const createVegetarianExtras = async (productId: string) => {
+    const extras = [
+      { name: 'Avocat supplémentaire', price: 1.5 },
+      { name: 'Fromage végétal', price: 1.0 },
+      { name: 'Sauce végan', price: 0.5 },
+    ];
+
+    for (const extra of extras) {
+      await prisma.extra.create({
+        data: {
+          ...extra,
+          productId,
+        },
+      });
+    }
+  };
+
+  // Créer les produits burger
+  const burgerProducts = [
     {
       name: 'Classic Burger',
       description:
@@ -111,7 +139,36 @@ export default async function productSeed() {
     },
   ];
 
-  for (const product of products) {
+  // Créer les produits végétariens
+  const vegetarianProducts = [
+    {
+      name: 'Buddha Bowl',
+      description: 'Bol composé de quinoa, légumes grillés, avocat et houmous',
+      price: 12.99,
+      calories: 450,
+      preparationTime: 10,
+      image: VEGGIE_IMAGE,
+    },
+    {
+      name: 'Salade Méditerranéenne',
+      description: 'Salade fraîche avec falafel, olives, tomates et sauce tahini',
+      price: 11.99,
+      calories: 380,
+      preparationTime: 8,
+      image: VEGGIE_IMAGE,
+    },
+    {
+      name: 'Wrap Végétalien',
+      description: 'Wrap aux légumes grillés, houmous et légumes croquants',
+      price: 9.99,
+      calories: 420,
+      preparationTime: 7,
+      image: VEGGIE_IMAGE,
+    },
+  ];
+
+  // Créer les burgers
+  for (const product of burgerProducts) {
     const createdProduct = await prisma.product.create({
       data: {
         ...product,
@@ -119,12 +176,22 @@ export default async function productSeed() {
       },
     });
 
-    // Ajouter les variants
     await createSizeVariant(createdProduct.id);
     await createCookingVariant(createdProduct.id);
-
-    // Ajouter les extras
     await createCommonExtras(createdProduct.id);
+  }
+
+  // Créer les produits végétariens
+  for (const product of vegetarianProducts) {
+    const createdProduct = await prisma.product.create({
+      data: {
+        ...product,
+        categoryId: vegetarianCategory.id,
+      },
+    });
+
+    await createSizeVariant(createdProduct.id);
+    await createVegetarianExtras(createdProduct.id);
   }
 
   console.log('Base de données initialisée avec succès !');
