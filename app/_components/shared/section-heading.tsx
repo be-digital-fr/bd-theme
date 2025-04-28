@@ -43,7 +43,7 @@ export default function SectionHeading({ title, link, linkText }: SectionHeading
       <h2 className="text-xl md:text-3xl font-medium md:max-w-lg" id="section-title">
         {title}
       </h2>
-      <Button variant="lime" className="h-8 md:h-12" asChild aria-label={linkText || `View all ${title}`}>
+      <Button variant="lime" className="h-8 md:h-12 shadow" asChild aria-label={linkText || `View all ${title}`}>
         <Link href={link} aria-describedby="section-title">
           {linkText || "View all"}
         </Link>
