@@ -1,5 +1,5 @@
 model User {
-  id            String    @id
+  id            String     @id
   name          String
   email         String
   emailVerified Boolean
@@ -9,6 +9,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   favorites     Favorite[]
+  Review        Review[]
 
   @@unique([email])
   @@map("user")

@@ -4,13 +4,24 @@ import Link from "next/link";
 import { Button, DefaultCard, Separator } from "../_components/ui";
 import { Container, FeatureWithIcon, SectionHeading } from "../_components/shared";
 import { cn } from "../_lib";
+import { Prisma } from "@/lib";
+import ProductCarousel from "./_components/product-carrousel";
 
 export const metadata: Metadata = {
   title: "Eat a Box - The best way to eat a box",
   description: "Eat a Box is the best way to eat a box",
 };
 
-export default function Home() {
+type Product = Prisma.ProductGetPayload<{
+  include: {
+    reviews: true;
+  };
+}>;
+
+export default async function Home() {
+  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`);
+  const productsData = await products.json();
+  console.log(productsData);
   return (
     <>
       {/* Skip link for accessibility */}
@@ -114,10 +125,10 @@ export default function Home() {
         <Separator className="my-10 bg-card data-[orientation=horizontal]:h-[0.1rem]" />
 
         {/* Testimonials section */}
-        <Container>
+        <Container className="space-y-10">
           <SectionHeading title="Explore Top Restaurants & Trending Meals" link="/menu" />
 
-          <DefaultCard />
+          <ProductCarousel products={productsData} />
         </Container>
       </main>
     </>

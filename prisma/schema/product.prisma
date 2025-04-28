@@ -9,59 +9,60 @@ model Category {
 }
 
 model Product {
-  id          String         @id @default(cuid())
-  name        String
-  description String
-  price       Float
-  image       String
-  calories    Int?
-  isAvailable Boolean       @default(true)
-  preparationTime Int?      // temps de préparation en minutes
-  categoryId  String
-  category    Category      @relation(fields: [categoryId], references: [id])
-  variants    Variant[]
-  extras      Extra[]
-  orderItems  OrderItem[]
-  favorites   Favorite[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id              String      @id @default(cuid())
+  name            String
+  description     String
+  price           Float
+  image           String
+  calories        Int?
+  isAvailable     Boolean     @default(true)
+  preparationTime Int? // temps de préparation en minutes
+  categoryId      String
+  category        Category    @relation(fields: [categoryId], references: [id])
+  variants        Variant[]
+  extras          Extra[]
+  orderItems      OrderItem[]
+  favorites       Favorite[]
+  reviews         Review[] // Nouvelle relation avec les avis
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model Variant {
-  id          String    @id @default(cuid())
-  name        String    // ex: "Taille", "Cuisson"
-  options     String[]  // ex: ["Petit", "Moyen", "Grand"] ou ["Saignant", "À point"]
-  price       Float?    // supplément de prix si applicable
-  productId   String
-  product     Product   @relation(fields: [productId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  name      String // ex: "Taille", "Cuisson"
+  options   String[] // ex: ["Petit", "Moyen", "Grand"] ou ["Saignant", "À point"]
+  price     Float? // supplément de prix si applicable
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Extra {
-  id          String    @id @default(cuid())
-  name        String    // ex: "Sauce supplémentaire", "Fromage"
+  id          String   @id @default(cuid())
+  name        String // ex: "Sauce supplémentaire", "Fromage"
   price       Float
-  isAvailable Boolean   @default(true)
+  isAvailable Boolean  @default(true)
   productId   String
-  product     Product   @relation(fields: [productId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  product     Product  @relation(fields: [productId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model OrderItem {
-  id          String    @id @default(cuid())
-  quantity    Int
-  unitPrice   Float
-  totalPrice  Float
-  notes       String?
-  productId   String
-  product     Product   @relation(fields: [productId], references: [id])
-  orderId     String
+  id               String   @id @default(cuid())
+  quantity         Int
+  unitPrice        Float
+  totalPrice       Float
+  notes            String?
+  productId        String
+  product          Product  @relation(fields: [productId], references: [id])
+  orderId          String
   selectedVariants Json? // stocke les choix de variants sélectionnés
-  selectedExtras  Json? // stocke les extras sélectionnés
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  selectedExtras   Json? // stocke les extras sélectionnés
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Favorite {
@@ -74,4 +75,18 @@ model Favorite {
 
   @@unique([userId, productId])
   @@map("favorite")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int // Note de 1 à 5
+  comment   String? // Commentaire optionnel
+  userId    String
+  productId String
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId]) // Un utilisateur ne peut laisser qu'un seul avis par produit
 }

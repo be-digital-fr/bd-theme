@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../dialog';
-import { Heart, HeartOff } from 'lucide-react';
+import { Heart, HeartHandshake, HeartOff } from 'lucide-react';
 import { Button } from '../button';
 import { authClient } from '@/infrastructure/better-auth/lib';
 import Link from 'next/link';
 import { cn } from '@/app/_lib';
-import { toggleFavorite } from '@/app/action/favorite';
+import { toggleFavorite, checkFavorite } from '@/app/action/favorite';
 
 interface FavoriteButtonProps {
   productId: string;
@@ -22,15 +22,22 @@ export const FavoriteButton = ({
   const [showDialog, setShowDialog] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  useEffect(() => {
+    const checkInitialFavorite = async () => {
+      if (session?.user) {
+        const { isFavorite } = await checkFavorite(productId);
+        setIsFavorite(isFavorite);
+      }
+    };
+    checkInitialFavorite();
+  }, [session?.user, productId]);
+
   const handleClick = async () => {
     if (!session?.user) {
       setShowDialog(true);
       return;
     }
     const res = await toggleFavorite({ productId, isFavorite: isFavorite });
-    console.log('====================================');
-    console.log(res);
-    console.log('====================================');
     if (res.success) {
       setIsFavorite(res.isFavorite);
     }
@@ -39,7 +46,7 @@ export const FavoriteButton = ({
   return (
     <>
       <Button
-        aria-label={isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+        aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         variant="ghost"
         size="icon"
         className={cn(
@@ -48,23 +55,23 @@ export const FavoriteButton = ({
         )}
         onClick={handleClick}>
         {isFavorite ? (
-          <HeartOff size={20} className="text-red-500" />
+          <HeartHandshake fill="red" className="text-red-500 size-5" />
         ) : (
-          <Heart className=" size-5" />
+          <Heart className="size-5" />
         )}
       </Button>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent>
-          <DialogTitle>Connexion requise</DialogTitle>
+          <DialogTitle>Connection required</DialogTitle>
           <p className="mb-4">
-            Vous devez être connecté pour ajouter un produit à vos favoris.
+            You must be connected to add a product to your favorites.
           </p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button variant="default" asChild>
-              <Link href="/auth/sign-in">Se connecter</Link>
+              <Link href="/auth/sign-in">Sign in</Link>
             </Button>
           </DialogFooter>
         </DialogContent>

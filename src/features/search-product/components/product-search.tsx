@@ -41,7 +41,7 @@ export function ProductSearch() {
 
     // API call with error handling using catchError utility
     const [error, results] = await catchError(
-      fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`).then(
+      fetch(`/api/v1/search?q=${encodeURIComponent(searchQuery)}`).then(
         (response) => {
           if (!response.ok) {
             throw new Error('Failed to search products');

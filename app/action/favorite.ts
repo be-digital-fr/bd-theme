@@ -44,3 +44,22 @@ export const toggleFavorite = async (input: unknown) => {
     return { success: true, isFavorite: true };
   }
 };
+
+export const checkFavorite = async (productId: string) => {
+  const session = await authSession();
+  const userId = session?.user?.id;
+  if (!userId) {
+    return { isFavorite: false };
+  }
+
+  const favorite = await prisma.favorite.findUnique({
+    where: {
+      userId_productId: {
+        userId,
+        productId,
+      },
+    },
+  });
+
+  return { isFavorite: !!favorite };
+};

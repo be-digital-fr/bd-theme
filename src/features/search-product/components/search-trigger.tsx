@@ -1,7 +1,6 @@
 /**
  * External library imports
  */
-import { Button } from '@/app/_components/ui';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 

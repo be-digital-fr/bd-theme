@@ -24,7 +24,7 @@ test.describe('Product Search Feature', () => {
 
   test('search input works and shows results', async ({ page }) => {
     // Mock API response
-    await page.route('/api/search**', async (route) => {
+    await page.route('/api/v1/search**', async (route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify([
@@ -44,7 +44,7 @@ test.describe('Product Search Feature', () => {
 
   test('shows empty state when no results', async ({ page }) => {
     // Mock empty API response
-    await page.route('/api/search**', async (route) => {
+    await page.route('/api/v1/search**', async (route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify([]),
@@ -61,7 +61,7 @@ test.describe('Product Search Feature', () => {
 
   test('shows loading state', async ({ page }) => {
     // Mock delayed API response
-    await page.route('/api/search**', async (route) => {
+    await page.route('/api/v1/search**', async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 500));
       await route.fulfill({
         status: 200,
@@ -79,7 +79,7 @@ test.describe('Product Search Feature', () => {
 
   test('navigates to product when clicked', async ({ page }) => {
     // Mock API response
-    await page.route('/api/search**', async (route) => {
+    await page.route('/api/v1/search**', async (route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify([
