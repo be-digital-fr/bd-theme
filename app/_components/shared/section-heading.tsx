@@ -40,7 +40,7 @@ export default function SectionHeading({ title, link, linkText }: SectionHeading
       role="banner"
       aria-label={`Section ${title}`}
     >
-      <h2 className="text-xl md:text-3xl font-medium md:max-w-lg" id="section-title">
+      <h2 className="text-xl md:text-4xl font-medium md:max-w-lg" id="section-title">
         {title}
       </h2>
       <Button variant="lime" className="h-8 md:h-12 shadow" asChild aria-label={linkText || `View all ${title}`}>

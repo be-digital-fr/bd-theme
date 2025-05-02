@@ -41,12 +41,14 @@ export default function DefaultCard({ product }: Product) {
       : "0.0";
 
   return (
-    <Card className="max-w-96 bg-transparent border-none shadow-none">
+    <Card className="max-w-80 bg-transparent border-none shadow-none">
       <CardContent className="p-0">
         {/* Main container with image and information */}
         <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
           {/* Product image */}
-          <Image src={product.image} alt={product.name} width={320} height={200} />
+          <div className="relative w-full h-56">
+            <Image src={product.image} alt={product.name} fill objectFit="contain" />
+          </div>
 
           {/* Favorite button in top right corner */}
           <FavoriteButton productId={product.id} className="absolute top-2 right-2" />

@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, DefaultCard, Separator } from "../_components/ui";
+import { Button, Separator } from "../_components/ui";
 import { Container, FeatureWithIcon, SectionHeading } from "../_components/shared";
 import { cn } from "../_lib";
-import { Prisma } from "@/lib";
+import { Category, Prisma } from "@/lib";
 import ProductCarousel from "./_components/product-carrousel";
+import CategoryCard from "./_components/category-card";
+import CategorySection from "./_components/category-section";
 
 export const metadata: Metadata = {
   title: "Eat a Box - The best way to eat a box",
@@ -19,17 +21,19 @@ type Product = Prisma.ProductGetPayload<{
 }>;
 
 export default async function Home() {
-  const [productsResponse, vegetarianProductsResponse] = await Promise.all([
+  const [productsResponse, vegetarianProductsResponse, categoriesResponse] = await Promise.all([
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`),
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
   ]);
 
-  const [productsData, vegetarianProductsData] = await Promise.all([
+  const [productsData, vegetarianProductsData, categoriesData] = await Promise.all([
     productsResponse.json(),
     vegetarianProductsResponse.json(),
+    categoriesResponse.json(),
   ]);
 
-  console.log(vegetarianProductsData);
+  console.log(productsData);
   return (
     <>
       {/* Skip link for accessibility */}
@@ -40,7 +44,7 @@ export default async function Home() {
       >
         Skip to main content
       </a>
-      <main id="main-content" role="main">
+      <main id="main-content" role="main" className="space-y-16 md:space-y-24">
         {/* Hero section */}
         <section
           className="relative overflow-hidden mt-4 md:rounded-2xl max-[380px]:h-[120vh] h-screen md:h-[70vh]"
@@ -136,7 +140,7 @@ export default async function Home() {
         <Container className="space-y-10">
           <SectionHeading title="Explore Top Restaurants & Trending Meals" link="/menu" />
 
-          <ProductCarousel products={productsData} />
+          <ProductCarousel products={productsData || []} />
         </Container>
 
         {/* Vegetarian section */}
@@ -148,6 +152,10 @@ export default async function Home() {
 
           <ProductCarousel products={vegetarianProductsData?.products || []} />
         </Container>
+
+        {/* Categories section */}
+
+        <CategorySection categories={categoriesData || []} />
       </main>
     </>
   );
