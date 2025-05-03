@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Button, Separator } from "../_components/ui";
 import { Container, FeatureWithIcon, SectionHeading } from "../_components/shared";
 import { cn } from "../_lib";
-import { Category, Prisma } from "@/lib";
+import { Prisma } from "@/lib";
 import ProductCarousel from "./_components/product-carrousel";
-import CategoryCard from "./_components/category-card";
 import CategorySection from "./_components/category-section";
+import { FadeIn, FadeInUp, StaggerContainer, StaggerItem } from "../_components/animation/fade-in";
 
 export const metadata: Metadata = {
   title: "Eat a Box - The best way to eat a box",
@@ -79,25 +79,32 @@ export default async function Home() {
             )}
             role="presentation"
           >
-            <div className=" text-center md:text-left text-white space-y-4">
-              <h1 className="text-5xl md:text-[6vw] lg:text-7xl font-bold leading-tight">
+            <StaggerContainer className=" text-center md:text-left text-white space-y-4">
+              <StaggerItem
+                as="h1"
+                className="text-5xl md:text-[6vw] lg:text-7xl font-bold leading-tight"
+              >
                 Healthy Food Made Easy!
-              </h1>
-              <p className="text-lg text-primary-foreground">
+              </StaggerItem>
+              <StaggerItem as="p" className="text-lg text-primary-foreground">
                 Fresh meals from your favorite restaurants, delivered to your door or ready for
                 pickup.
-              </p>
-            </div>
+              </StaggerItem>
+            </StaggerContainer>
 
-            <nav aria-label="Main actions" className="w-full grid grid-cols-2 gap-4 max-w-md ">
+            <FadeIn
+              delay={1.2}
+              aria-label="Main actions"
+              className="w-full grid grid-cols-2 gap-4 max-w-md "
+            >
               <Button
-                asChild
                 size="lg"
                 aria-label="Order Now"
                 className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]"
               >
                 <Link href="/menu">Order Now</Link>
               </Button>
+
               <Button
                 asChild
                 variant="tertiary"
@@ -107,30 +114,32 @@ export default async function Home() {
               >
                 <Link href="/menu">Browse Menu</Link>
               </Button>
-            </nav>
+            </FadeIn>
           </Container>
         </section>
 
         {/* Features section */}
-        <Container className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-10">
-          <FeatureWithIcon icon="/icons/fast.svg" title="Fast & Reliable Delivery" />
-          <FeatureWithIcon
-            icon="/icons/secure.svg"
-            title="Secure Multiple Payment"
-            className="md:hidden"
-          />
-          <FeatureWithIcon
-            icon="/icons/secure.svg"
-            title="Secure Payment"
-            className="hidden md:flex"
-          />
-          <FeatureWithIcon icon="/icons/healthy.svg" title="Healthy & Fresh Ingredients" />
-          <FeatureWithIcon icon="/icons/click-and-collect.svg" title="Click & Collect" />
-          <FeatureWithIcon
-            icon="/icons/card.svg"
-            title="Multiple Payment"
-            className="hidden md:flex"
-          />
+        <Container>
+          <StaggerContainer className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-10">
+            <FeatureWithIcon icon="/icons/fast.svg" title="Fast & Reliable Delivery" />
+            <FeatureWithIcon
+              icon="/icons/secure.svg"
+              title="Secure Multiple Payment"
+              className="md:hidden"
+            />
+            <FeatureWithIcon
+              icon="/icons/secure.svg"
+              title="Secure Payment"
+              className="hidden md:flex"
+            />
+            <FeatureWithIcon icon="/icons/healthy.svg" title="Healthy & Fresh Ingredients" />
+            <FeatureWithIcon icon="/icons/click-and-collect.svg" title="Click & Collect" />
+            <FeatureWithIcon
+              icon="/icons/card.svg"
+              title="Multiple Payment"
+              className="hidden md:flex"
+            />
+          </StaggerContainer>
         </Container>
 
         {/* Separator */}

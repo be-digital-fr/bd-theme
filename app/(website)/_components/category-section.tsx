@@ -7,18 +7,17 @@ import CategoryCard from "./category-card";
 import { Category } from "@/lib";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { WordsPullUp } from "@/app/_components/animation";
 
 const MotionCarouselItem = motion.create(CarouselItem);
 
 export default function CategorySection({ categories }: { categories: Category[] }) {
   return (
-    <section className="bg-[#E8DCC6] rounded-4xl p-4 py-16 relative">
+    <section className="bg-[#E8DCC6] md:rounded-4xl p-4 py-16 relative">
       <Container as="div">
-        <h2 className="text-xl md:text-4xl font-medium md:max-w-lg" id="section-title">
-          Best Categories We Have
-        </h2>
+        <WordsPullUp containerClassName="justify-start mb-6 md:mb-0" className="text-2xl md:text-4xl font-medium " text="Best Categories We Have" />
 
-        <div className="hidden md:grid grid-cols-2 gap-4 md:grid-cols-4 mt-10">
+        <div className="hidden md:grid grid-cols-2 gap-4 lg:grid-cols-4 mt-10">
           {categories?.map((category) => <CategoryCard key={category.id} category={category} />)}
         </div>
 
@@ -27,7 +26,7 @@ export default function CategorySection({ categories }: { categories: Category[]
             {categories?.map((category, index) => (
               <MotionCarouselItem
                 key={category.id}
-                className="pl-4 basis-full md:basis-1/3"
+                className="pl-4 basis-full"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}

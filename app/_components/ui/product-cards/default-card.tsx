@@ -41,7 +41,7 @@ export default function DefaultCard({ product }: Product) {
       : "0.0";
 
   return (
-    <Card className="max-w-80 bg-transparent border-none shadow-none">
+    <Card className="md:max-w-80 bg-transparent border-none shadow-none">
       <CardContent className="p-0">
         {/* Main container with image and information */}
         <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
