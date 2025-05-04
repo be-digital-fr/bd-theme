@@ -4,10 +4,13 @@ import Link from "next/link";
 import { Button, Separator } from "../_components/ui";
 import { Container, FeatureWithIcon, SectionHeading } from "../_components/shared";
 import { cn } from "../_lib";
-import { Prisma } from "@/lib";
+import { Category, Prisma } from "@/lib";
 import ProductCarousel from "./_components/product-carrousel";
 import CategorySection from "./_components/category-section";
 import { FadeIn, FadeInUp, StaggerContainer, StaggerItem } from "../_components/animation/fade-in";
+import CategoryCarrousel from "./_components/category-carrousel";
+import CategoryCard from "./_components/category-card";
+import { WordsPullUp } from "../_components/animation";
 
 export const metadata: Metadata = {
   title: "Eat a Box - The best way to eat a box",
@@ -163,8 +166,64 @@ export default async function Home() {
         </Container>
 
         {/* Categories section */}
+        <section className="bg-[#E8DCC6] md:rounded-4xl p-4 py-16 relative">
+          <Container as="div">
+            <WordsPullUp
+              containerClassName="justify-start mb-6 md:mb-0"
+              className="text-2xl md:text-4xl font-medium "
+              text="Best Categories We Have"
+            />
 
-        <CategorySection categories={categoriesData || []} />
+            <div className="hidden md:grid grid-cols-2 gap-4 lg:grid-cols-4 mt-10">
+              {categoriesData?.map((category: Category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </div>
+
+            <div className="md:hidden">
+              <CategoryCarrousel categories={categoriesData || []} />
+            </div>
+          </Container>
+
+          <Image
+            src="/images/decoration-left-shape.svg"
+            alt="Decoration left shape"
+            width={200}
+            height={200}
+            className="absolute bottom-20 -left-6"
+          />
+          <Image
+            src="/images/decoration-right-shape.svg"
+            alt="Decoration right shape"
+            width={400}
+            height={400}
+            className="absolute top-16 right-0"
+          />
+        </section>
+
+        {/* Promotional section */}
+        <Container className="h-[500px]">
+          <div className="h-full grid grid-cols-[0.7fr_1fr] gap-4 bg-[#D7E5D6] md:rounded-4xl p-8 ">
+            <div className="flex flex-col gap-4 justify-between items-start pl-6">
+              <h2 className="text-2xl text-primary md:text-4xl font-medium leading-snug">
+                Delicious Healthy. & Affordable Meals Delivered.
+              </h2>
+
+              <Button size="lg" className="w-fit rounded-full" asChild>
+                <Link href="/menu">View Our Menu</Link>
+              </Button>
+            </div>
+
+            <div className="relative w-full h-full rounded-4xl overflow-hidden">
+              <Image
+                src="/images/promotional-image.png"
+                alt="Promotional image"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </Container>
       </main>
     </>
   );
