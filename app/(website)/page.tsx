@@ -6,8 +6,7 @@ import { Container, FeatureWithIcon, SectionHeading } from "../_components/share
 import { cn } from "../_lib";
 import { Category, Prisma } from "@/lib";
 import ProductCarousel from "./_components/product-carrousel";
-import CategorySection from "./_components/category-section";
-import { FadeIn, FadeInUp, StaggerContainer, StaggerItem } from "../_components/animation/fade-in";
+import { FadeIn, StaggerContainer, StaggerItem } from "../_components/animation/fade-in";
 import CategoryCarrousel from "./_components/category-carrousel";
 import CategoryCard from "./_components/category-card";
 import { WordsPullUp } from "../_components/animation";
@@ -203,8 +202,8 @@ export default async function Home() {
 
         {/* Promotional section */}
         <Container className="h-[500px]">
-          <div className="h-full grid grid-cols-[0.7fr_1fr] gap-4 bg-[#D7E5D6] md:rounded-4xl p-8 ">
-            <div className="flex flex-col gap-4 justify-between items-start pl-6">
+          <div className="h-full flex flex-col-reverse text-center md:text-left md:grid md:grid-cols-[0.7fr_1fr] gap-4 bg-[#D7E5D6] rounded-4xl p-4 md:p-8 ">
+            <div className="flex flex-col gap-4 justify-between items-center md:items-start pl-6">
               <h2 className="text-2xl text-primary md:text-4xl font-medium leading-snug">
                 Delicious Healthy. & Affordable Meals Delivered.
               </h2>
@@ -214,7 +213,7 @@ export default async function Home() {
               </Button>
             </div>
 
-            <div className="relative w-full h-full rounded-4xl overflow-hidden">
+            <div className="relative w-full h-full rounded-4xl overflow-hidden ">
               <Image
                 src="/images/promotional-image.png"
                 alt="Promotional image"

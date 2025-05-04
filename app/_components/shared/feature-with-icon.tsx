@@ -10,7 +10,7 @@ export type FeatureWithIconProps = {
 
 const FeatureWithIcon = ({ icon, title, description, className }: FeatureWithIconProps) => (
   <StaggerItem
-    className={`flex flex-col items-center gap-2 p-4 rounded-xl bg-muted/40 min-w-[120px] ${
+    className={`flex flex-col items-center gap-2 p-4 rounded-xl min-w-[120px] ${
       className || ""
     }`}
     role="group"
