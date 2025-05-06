@@ -6,7 +6,7 @@ import { Separator } from '../ui';
 
 export default function Footer() {
   return (
-    <Container as="footer" className="bg-primary py-12 md:pt-24 rounded-2xl text-white md:space-y-18">
+    <Container as="footer" className="bg-primary md:py-12 md:pt-24 py-8 rounded-2xl text-white md:space-y-18">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-12">
         {/* Address section */}
         <section className="flex flex-col gap-4">

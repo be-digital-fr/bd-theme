@@ -23,7 +23,13 @@ export default function BlogCard({ image, title, link }: BlogCardProps) {
           className="relative w-full h-64 rounded-lg overflow-hidden"
           role="img"
           aria-label={title}>
-          <Image src={image} alt={title} fill className="object-cover" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="100% "
+          />
 
           <Badge className="absolute top-2 right-2 bg-light-lime grid place-items-center text-light-lime-foreground">
             <span className=" text-lg font-bold">31</span>

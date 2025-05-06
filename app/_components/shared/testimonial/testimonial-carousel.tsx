@@ -149,6 +149,7 @@ export default function TestimonialCarousel() {
                     alt={`Photo de ${t.author}`}
                     fill
                     className="object-cover"
+                    sizes="100%"
                   />
                 </div>
                 <h4 className="text-sm font-semibold">
