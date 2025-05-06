@@ -16,7 +16,6 @@ import { Prisma } from "@/lib";
 import { DefaultCard } from "@/app/_components/ui";
 
 // Enhance components with motion capabilities
-const MotionCarouselItem = motion.create(CarouselItem);
 const MotionDiv = motion.create("div");
 
 /**

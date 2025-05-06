@@ -3,7 +3,7 @@ import { Provider } from '@/app/_components/shared';
 import * as z from '@zod/mini';
 
 // Fonts : DM Sans and Poppins
-import { DM_Sans, Poppins } from 'next/font/google';
+import { DM_Sans, Poppins, Plus_Jakarta_Sans } from 'next/font/google';
 
 const dmSans = DM_Sans({
   weight: ['400', '500', '700'],
@@ -15,6 +15,10 @@ const poppins = Poppins({
   subsets: ['latin'],
 });
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+});
 // Style
 import './globals.css';
 
@@ -32,7 +36,7 @@ export default function RootLayout({
 }: PropsWithChildren<RootLayoutProps>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.className} ${poppins.className}`}>
+      <body className={`${dmSans.className} ${poppins.className} ${plusJakartaSans.className}`}>
         <Provider>
           {children}
 

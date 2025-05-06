@@ -47,7 +47,7 @@ export default function DefaultCard({ product }: Product) {
         <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
           {/* Product image */}
           <div className="relative w-full h-56">
-            <Image src={product.image} alt={product.name} fill objectFit="contain" />
+            <Image src={product.image} alt={product.name} fill className="object-contain" />
           </div>
 
           {/* Favorite button in top right corner */}

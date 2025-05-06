@@ -1,19 +1,29 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { Button, Separator } from "../_components/ui";
-import { Container, FeatureWithIcon, SectionHeading } from "../_components/shared";
-import { cn } from "../_lib";
-import { Category, Prisma } from "@/lib";
-import ProductCarousel from "./_components/product-carrousel";
-import { FadeIn, StaggerContainer, StaggerItem } from "../_components/animation/fade-in";
-import CategoryCarrousel from "./_components/category-carrousel";
-import CategoryCard from "./_components/category-card";
-import { WordsPullUp } from "../_components/animation";
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button, Separator } from '../_components/ui';
+import {
+  BlogSection,
+  Container,
+  FeatureWithIcon,
+  SectionHeading,
+  TestimonialSection,
+} from '../_components/shared';
+import { cn } from '../_lib';
+import { Category, Prisma } from '@/lib';
+import ProductCarousel from './_components/product-carrousel';
+import {
+  FadeIn,
+  StaggerContainer,
+  StaggerItem,
+} from '../_components/animation/fade-in';
+import CategoryCarrousel from './_components/category-carrousel';
+import CategoryCard from './_components/category-card';
+import { WordsPullUp } from '../_components/animation';
 
 export const metadata: Metadata = {
-  title: "Eat a Box - The best way to eat a box",
-  description: "Eat a Box is the best way to eat a box",
+  title: 'Eat a Box - The best way to eat a box',
+  description: 'Eat a Box is the best way to eat a box',
 };
 
 type Product = Prisma.ProductGetPayload<{
@@ -23,17 +33,21 @@ type Product = Prisma.ProductGetPayload<{
 }>;
 
 export default async function Home() {
-  const [productsResponse, vegetarianProductsResponse, categoriesResponse] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`),
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
-  ]);
+  const [productsResponse, vegetarianProductsResponse, categoriesResponse] =
+    await Promise.all([
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`
+      ),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
+    ]);
 
-  const [productsData, vegetarianProductsData, categoriesData] = await Promise.all([
-    productsResponse.json(),
-    vegetarianProductsResponse.json(),
-    categoriesResponse.json(),
-  ]);
+  const [productsData, vegetarianProductsData, categoriesData] =
+    await Promise.all([
+      productsResponse.json(),
+      vegetarianProductsResponse.json(),
+      categoriesResponse.json(),
+    ]);
 
   console.log(productsData);
   return (
@@ -42,8 +56,7 @@ export default async function Home() {
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only absolute z-50 bg-white text-primary px-4 py-2 rounded shadow"
-        tabIndex={0}
-      >
+        tabIndex={0}>
         Skip to main content
       </a>
       <main id="main-content" role="main" className="space-y-16 md:space-y-24">
@@ -51,8 +64,7 @@ export default async function Home() {
         <section
           className="relative overflow-hidden mt-4 md:rounded-2xl max-[380px]:h-[120vh] h-screen md:h-[70vh]"
           role="banner"
-          aria-label="Hero section showcasing healthy food"
-        >
+          aria-label="Hero section showcasing healthy food">
           {/* Image responsive en background */}
           <Image
             src="/images/banner/background-mobile.png"
@@ -74,36 +86,32 @@ export default async function Home() {
           />
           <Container
             className={cn(
-              "absolute flex flex-col items-center justify-center md:items-start md:justify-start gap-10 max-w-lg sm:max-w-xl lg:max-w-4xl",
-              "top-10 left-1/2 -translate-x-1/2",
-              "sm:top-1/2 sm:-translate-y-1/2 sm:left-72",
-              "lg:top-1/2 lg:-translate-y-1/2 lg:left-[28rem]"
+              'absolute flex flex-col items-center justify-center md:items-start md:justify-start gap-10 max-w-lg sm:max-w-xl lg:max-w-4xl',
+              'top-10 left-1/2 -translate-x-1/2',
+              'sm:top-1/2 sm:-translate-y-1/2 sm:left-72',
+              'lg:top-1/2 lg:-translate-y-1/2 lg:left-[28rem]'
             )}
-            role="presentation"
-          >
+            role="presentation">
             <StaggerContainer className=" text-center md:text-left text-white space-y-4">
               <StaggerItem
                 as="h1"
-                className="text-5xl md:text-[6vw] lg:text-7xl font-bold leading-tight"
-              >
+                className="text-5xl md:text-[6vw] lg:text-7xl font-bold leading-tight">
                 Healthy Food Made Easy!
               </StaggerItem>
               <StaggerItem as="p" className="text-lg text-primary-foreground">
-                Fresh meals from your favorite restaurants, delivered to your door or ready for
-                pickup.
+                Fresh meals from your favorite restaurants, delivered to your
+                door or ready for pickup.
               </StaggerItem>
             </StaggerContainer>
 
             <FadeIn
               delay={1.2}
               aria-label="Main actions"
-              className="w-full grid grid-cols-2 gap-4 max-w-md "
-            >
+              className="w-full grid grid-cols-2 gap-4 max-w-md ">
               <Button
                 size="lg"
                 aria-label="Order Now"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]"
-              >
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]">
                 <Link href="/menu">Order Now</Link>
               </Button>
 
@@ -112,8 +120,7 @@ export default async function Home() {
                 variant="tertiary"
                 size="lg"
                 aria-label="Browse Menu"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]"
-              >
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]">
                 <Link href="/menu">Browse Menu</Link>
               </Button>
             </FadeIn>
@@ -123,7 +130,10 @@ export default async function Home() {
         {/* Features section */}
         <Container>
           <StaggerContainer className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-10">
-            <FeatureWithIcon icon="/icons/fast.svg" title="Fast & Reliable Delivery" />
+            <FeatureWithIcon
+              icon="/icons/fast.svg"
+              title="Fast & Reliable Delivery"
+            />
             <FeatureWithIcon
               icon="/icons/secure.svg"
               title="Secure Multiple Payment"
@@ -134,8 +144,14 @@ export default async function Home() {
               title="Secure Payment"
               className="hidden md:flex"
             />
-            <FeatureWithIcon icon="/icons/healthy.svg" title="Healthy & Fresh Ingredients" />
-            <FeatureWithIcon icon="/icons/click-and-collect.svg" title="Click & Collect" />
+            <FeatureWithIcon
+              icon="/icons/healthy.svg"
+              title="Healthy & Fresh Ingredients"
+            />
+            <FeatureWithIcon
+              icon="/icons/click-and-collect.svg"
+              title="Click & Collect"
+            />
             <FeatureWithIcon
               icon="/icons/card.svg"
               title="Multiple Payment"
@@ -149,7 +165,10 @@ export default async function Home() {
 
         {/* Best sellers section */}
         <Container className="space-y-10">
-          <SectionHeading title="Explore Top Restaurants & Trending Meals" link="/menu" />
+          <SectionHeading
+            title="Explore Top Restaurants & Trending Meals"
+            link="/menu"
+          />
 
           <ProductCarousel products={productsData || []} />
         </Container>
@@ -165,7 +184,7 @@ export default async function Home() {
         </Container>
 
         {/* Categories section */}
-        <section className="bg-[#E8DCC6] md:rounded-4xl p-4 py-16 relative">
+        <section className="bg-section-background md:rounded-4xl p-4 py-16 relative">
           <Container as="div">
             <WordsPullUp
               containerClassName="justify-start mb-6 md:mb-0"
@@ -208,7 +227,7 @@ export default async function Home() {
                 Delicious Healthy. & Affordable Meals Delivered.
               </h2>
 
-              <Button size="lg" className="w-fit rounded-full" asChild>
+              <Button size="lg" className="w-fit px-8 rounded-full" asChild>
                 <Link href="/menu">View Our Menu</Link>
               </Button>
             </div>
@@ -223,6 +242,12 @@ export default async function Home() {
             </div>
           </div>
         </Container>
+
+        {/* Testimonials section */}
+        <TestimonialSection />
+
+        {/* Blog section */}
+        <BlogSection />
       </main>
     </>
   );
