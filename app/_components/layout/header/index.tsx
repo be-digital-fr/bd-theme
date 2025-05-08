@@ -12,8 +12,9 @@ import { MobileNavigation } from './mobile-navigation';
 
 // Types and schemas
 import { NavigationLinksSchema } from './types';
-import { AuthTrigger } from "@/infrastructure/better-auth/interface";
-import { SearchTrigger } from "@/features/search-product/components"; 
+import { AuthTrigger } from '@/infrastructure/better-auth/interface';
+import { SearchTrigger } from '@/features/search-product/components';
+import ShoppingCart from './shopping-cart';
 
 /**
  * Navigation links configuration with SEO-friendly labels and descriptions
@@ -48,7 +49,10 @@ const navigationLinks = NavigationLinksSchema.parse([
  */
 export default function Header() {
   return (
-    <header role="banner" aria-label="En-tête principal du site">
+    <header
+      role="banner"
+      aria-label="En-tête principal du site"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
       {/* <StoreSelectorTrigger /> */}
 
       <nav className="w-full py-4" aria-label="Navigation principale">
@@ -86,19 +90,7 @@ export default function Header() {
                 <AuthTrigger />
               </div>
               {/* Shopping Cart */}
-              <div className="relative">
-                <Link
-                  href="/cart"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="Panier d'achat - 2 articles">
-                  <ShoppingBag className="w-5 h-5" aria-hidden="true" />
-                  <span
-                    className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full w-4 h-4 flex items-center justify-center"
-                    role="status">
-                    2
-                  </span>
-                </Link>
-              </div>
+              <ShoppingCart />
               {/* Mobile Navigation Menu */}
               <div className="md:hidden">
                 <MobileNavigation links={navigationLinks} />

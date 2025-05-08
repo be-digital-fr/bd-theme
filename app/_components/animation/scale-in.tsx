@@ -52,7 +52,7 @@ export function ScaleIn({
   as: Component = "div",
   ...props
 }: BaseAnimationProps) {
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent
@@ -70,4 +70,4 @@ export function ScaleIn({
       {children}
     </MotionComponent>
   );
-} 
+}

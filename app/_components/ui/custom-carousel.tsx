@@ -85,7 +85,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
       {/* Navigation Controls - Only shown when scrolling is possible */}
 
       <MotionDiv
-        className="flex justify-end space-x-4 mb-4 z-[100] relative"
+        className="flex justify-end space-x-4 mb-4 z-10 relative"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

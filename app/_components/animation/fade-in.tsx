@@ -37,7 +37,7 @@ export function FadeIn({
   as: Component = "div",
   ...props
 }: BaseAnimationProps) {
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent
@@ -72,7 +72,7 @@ export function FadeInUp({
   as: Component = "div",
   ...props
 }: BaseAnimationProps) {
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent
@@ -106,7 +106,7 @@ export function StaggerContainer({
   as: Component = "div",
   ...props
 }: BaseAnimationProps) {
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent
@@ -136,7 +136,7 @@ export function StaggerItem({
   as: Component = "div",
   ...props
 }: BaseAnimationProps) {
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent variants={staggerChildren} className={className} {...props}>

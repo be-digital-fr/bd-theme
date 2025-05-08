@@ -27,12 +27,6 @@ export const metadata: Metadata = {
   description: 'Eat a Box is the best way to eat a box',
 };
 
-type Product = Prisma.ProductGetPayload<{
-  include: {
-    reviews: true;
-  };
-}>;
-
 export default async function Home() {
   const [productsResponse, vegetarianProductsResponse, categoriesResponse] =
     await Promise.all([
@@ -60,7 +54,10 @@ export default async function Home() {
         tabIndex={0}>
         Skip to main content
       </a>
-      <main id="main-content" role="main" className="space-y-16 md:space-y-24">
+      <main
+        id="main-content"
+        role="main"
+        className="space-y-16 md:space-y-24 mt-20">
         {/* Hero section */}
         <section
           className="relative overflow-hidden mt-4 md:rounded-2xl max-[380px]:h-[120vh] h-screen md:h-[70vh]"
@@ -208,6 +205,7 @@ export default async function Home() {
 
           <Image
             src="/images/decoration-left-shape.svg"
+            sizes="(max-width: 768px) 100vw, 100vw"
             alt="Decoration left shape"
             width={200}
             height={200}
@@ -215,6 +213,7 @@ export default async function Home() {
           />
           <Image
             src="/images/decoration-right-shape.svg"
+            sizes="(max-width: 768px) 100vw, 100vw"
             alt="Decoration right shape"
             width={400}
             height={400}
@@ -238,6 +237,7 @@ export default async function Home() {
             <div className="relative w-full h-full rounded-4xl overflow-hidden ">
               <Image
                 src="/images/promotional-image.png"
+                sizes="(max-width: 768px) 100vw, 100vw"
                 alt="Promotional image"
                 fill
                 className="object-cover"

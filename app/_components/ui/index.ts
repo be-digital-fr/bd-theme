@@ -2,6 +2,7 @@
 // Custom components
 export { default as DefaultCard } from './product-cards/default-card';
 export { default as CustomCarousel } from './custom-carousel';
+export { default as CustomLoader } from './custom-loader';
 // Shadcn UI components
 export * from './button';
 export * from './card';

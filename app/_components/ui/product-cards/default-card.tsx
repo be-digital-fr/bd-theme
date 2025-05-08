@@ -1,11 +1,12 @@
-import Image from "next/image";
-import { Star } from "lucide-react";
-import { z } from "@zod/mini";
+import Image from 'next/image';
+import { Star } from 'lucide-react';
+import { z } from '@zod/mini';
 
-import { Prisma } from "@/lib";
-import { Card, CardContent, CardFooter } from "../card";
-import { Button } from "../button";
-import FavoriteButton from "./favorite-icon";
+import { Prisma } from '@/lib';
+import { Card, CardContent, CardFooter } from '../card';
+import { Button } from '../button';
+import FavoriteButton from './favorite-icon';
+import AddToCartButton from './add-to-cart-button';
 
 // Validation schema for product with included reviews
 const ProductSchema = z.object({
@@ -19,7 +20,7 @@ const ProductSchema = z.object({
 });
 
 // Inferred type from schema for TypeScript typing
-type Product = z.infer<typeof ProductSchema>;
+export type Product = z.infer<typeof ProductSchema>;
 
 /**
  * DefaultCard Component - Displays a product card with image, rating and price
@@ -29,16 +30,17 @@ type Product = z.infer<typeof ProductSchema>;
 export default function DefaultCard({ product }: Product) {
   // Validate product with Zod schema
   if (!ProductSchema.safeParse(product).success) {
-    throw new Error("Invalid product");
+    throw new Error('Invalid product');
   }
 
   // Calculate average rating (rounded to 1 decimal place)
   const averageRating =
     product.reviews?.length > 0
       ? (
-          product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.reviews.length
+          product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+          product.reviews.length
         ).toFixed(1)
-      : "0.0";
+      : '0.0';
 
   return (
     <Card className="md:max-w-80 bg-transparent border-none shadow-none">
@@ -47,17 +49,29 @@ export default function DefaultCard({ product }: Product) {
         <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
           {/* Product image */}
           <div className="relative w-full h-56">
-            <Image src={product.image} alt={product.name} fill className="object-contain" />
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 100vw"
+              className="object-contain"
+            />
           </div>
 
           {/* Favorite button in top right corner */}
-          <FavoriteButton productId={product.id} className="absolute top-2 right-2" />
+          <FavoriteButton
+            productId={product.id}
+            className="absolute top-2 right-2"
+          />
 
           {/* Information bar at bottom of image */}
           <div className="w-full px-4 flex items-center justify-between absolute bottom-4 left-1/2 -translate-x-1/2">
             {/* Display average rating and number of reviews */}
             <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" className="bg-primary rounded-full size-5 p-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-primary rounded-full size-5 p-3">
                 <Star fill="white" className="text-white" />
               </Button>
               <span className="text-sm font-medium">{averageRating}</span>
@@ -68,7 +82,9 @@ export default function DefaultCard({ product }: Product) {
 
             {/* Preparation time */}
             <div className="flex items-center gap-1">
-              <span className="text-sm font-medium">~{product.preparationTime}</span>
+              <span className="text-sm font-medium">
+                ~{product.preparationTime}
+              </span>
               <span className="text-xs text-muted-foreground"> mins</span>
             </div>
           </div>
@@ -80,10 +96,8 @@ export default function DefaultCard({ product }: Product) {
 
           {/* Action buttons and price display */}
           <div className="w-full flex items-center justify-between gap-1">
-            <Button size={"sm"} className="rounded-full">
-              Add to cart
-            </Button>
-            <Button variant={"ghost"} className="text-primary">
+            <AddToCartButton product={product} />
+            <Button variant={'ghost'} className="text-primary">
               {product.price} €
             </Button>
           </div>
