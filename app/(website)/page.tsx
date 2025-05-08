@@ -17,6 +17,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from '../_components/animation/fade-in';
+import { ScaleIn } from '../_components/animation';
 import CategoryCarrousel from './_components/category-carrousel';
 import CategoryCard from './_components/category-card';
 import { WordsPullUp } from '../_components/animation';
@@ -193,8 +194,10 @@ export default async function Home() {
             />
 
             <div className="hidden md:grid grid-cols-2 gap-4 lg:grid-cols-4 mt-10">
-              {categoriesData?.map((category: Category) => (
-                <CategoryCard key={category.id} category={category} />
+              {categoriesData?.map((category: Category, index: number) => (
+                <ScaleIn key={category.id} delay={index * 0.1}>
+                  <CategoryCard category={category} />
+                </ScaleIn>
               ))}
             </div>
 

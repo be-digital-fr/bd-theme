@@ -6,7 +6,9 @@ import { Separator } from '../ui';
 
 export default function Footer() {
   return (
-    <Container as="footer" className="bg-primary md:py-12 md:pt-24 py-8 rounded-2xl text-white md:space-y-18">
+    <Container
+      as="footer"
+      className="bg-primary md:py-12 md:pt-24 py-8 rounded-2xl text-white md:space-y-18">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-12">
         {/* Address section */}
         <section className="flex flex-col gap-4">
@@ -23,7 +25,7 @@ export default function Footer() {
         {/* Utility links section */}
         <section className="flex flex-col md:items-center gap-4">
           <h3 className="text-md font-semibold">Utility Links</h3>
-          <ul className="flex flex-col md:items-center gap-2">
+          <ul className="flex flex-col gap-2 list-disc">
             <li>Link 1</li>
             <li>Link 2</li>
             <li>Link 3</li>
@@ -33,7 +35,7 @@ export default function Footer() {
         {/* Products section */}
         <section className="flex flex-col md:items-center gap-4">
           <h3 className="text-md font-semibold">Legals</h3>
-          <ul className="flex flex-col md:items-center gap-2">
+          <ul className="flex flex-col gap-2 list-disc">
             <li>Privacy Policy</li>
             <li>Terms of Service</li>
             <li>Cookie Policy</li>
@@ -46,9 +48,9 @@ export default function Footer() {
 
       <Separator className="bg-primary-light my-8 md:hidden" />
 
-      <section className="px-4">
-        <div className="md:bg-primary-light p-4 rounded-full">
-          <Container className="flex flex-col gap-4 md:flex-row justify-between items-center">
+      <section className="px-4 md:bg-primary-light rounded-full p-4">
+        <Container className="sm:px-0 lg:px-0">
+          <div className="flex flex-col gap-4 md:flex-row justify-between items-center">
             <p className="text-sm">2025 Eat a Box. All rights reserved</p>
 
             {/* Socials */}
@@ -63,8 +65,8 @@ export default function Footer() {
                 <Instagram className="w-4 h-4" />
               </Link>
             </div>
-          </Container>
-        </div>
+          </div>
+        </Container>
       </section>
     </Container>
   );
