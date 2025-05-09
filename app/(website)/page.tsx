@@ -27,22 +27,26 @@ export const metadata: Metadata = {
   description: 'Eat a Box is the best way to eat a box',
 };
 
-export default async function Home() {
-  const [productsResponse, vegetarianProductsResponse, categoriesResponse] =
-    await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`
-      ),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
-    ]);
+async function fetchData(url: string) {
+  try {
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    if (!response.ok) {
+      console.error(`Error fetching ${url}:`, response.statusText);
+      return null;
+    }
+    return response.json();
+  } catch (error) {
+    console.error(`Error fetching ${url}:`, error);
+    return null;
+  }
+}
 
-  const [productsData, vegetarianProductsData, categoriesData] =
-    await Promise.all([
-      productsResponse.json(),
-      vegetarianProductsResponse.json(),
-      categoriesResponse.json(),
-    ]);
+export default async function Home() {
+  const [productsData, vegetarianProductsData, categoriesData] = await Promise.all([
+    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
+    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`),
+    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
+  ]);
 
   console.log(productsData);
   return (

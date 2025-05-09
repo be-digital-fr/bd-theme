@@ -1,6 +1,3 @@
-'use server';
-
-import { assertValue } from '@/utils';
 import { SocialProviders } from 'better-auth/social-providers';
 
 /* const googleClientId = assertValue(
@@ -14,9 +11,9 @@ const googleClientSecret = assertValue(
 
 export async function getSocialProviders(): Promise<SocialProviders> {
   return {
-    google: {
+    /* google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    },
+    }, */
   };
 }
