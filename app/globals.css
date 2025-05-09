@@ -48,6 +48,7 @@
   --color-tertiary-foreground: var(--tertiary-foreground);
   --color-tertiary: var(--tertiary);
   --color-light-lime: var(--light-lime);
+  --color-light-lime-foreground: var(--light-lime-foreground);
   --color-section-background: var(--section-background);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -75,6 +76,7 @@
   --tertiary: oklch(0.81 0.1658 73.63);
   --tertiary-foreground: oklch(1 0 0);
   --light-lime: oklch(0.95 0.1896 117.37);
+  --light-lime-foreground: oklch(0.44 0.0909 161.87);
   --section-background: oklch(0.9 0.0322 82.76);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);

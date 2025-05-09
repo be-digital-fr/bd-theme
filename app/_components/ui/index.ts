@@ -17,3 +17,4 @@ export * from './dialog';
 export * from './tabs';
 export * from './skeleton';
 export * from './badge';
+export * from './progress'
