@@ -26,7 +26,7 @@ export default function Footer() {
         {/* Utility links section */}
         <StaggerItem as="section" className="flex flex-col md:items-center gap-4">
           <h3 className="text-md font-semibold">Utility Links</h3>
-          <ul className="flex flex-col gap-2 list-disc">
+          <ul className="flex flex-col gap-2 list-disc pl-4 md:pl-0">
             <li>Link 1</li>
             <li>Link 2</li>
             <li>Link 3</li>
@@ -36,7 +36,7 @@ export default function Footer() {
         {/* Products section */}
         <StaggerItem as="section" className="flex flex-col md:items-center gap-4">
           <h3 className="text-md font-semibold">Legals</h3>
-          <ul className="flex flex-col gap-2 list-disc">
+          <ul className="flex flex-col gap-2 list-disc pl-4 md:pl-0">
             <li>Privacy Policy</li>
             <li>Terms of Service</li>
             <li>Cookie Policy</li>
