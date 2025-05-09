@@ -10,7 +10,7 @@ import {
   TestimonialSection,
 } from '../_components/shared';
 import { cn } from '../_lib';
-import { Category, Prisma } from '@/lib';
+import { Category } from '@/lib';
 import ProductCarousel from './_components/product-carrousel';
 import {
   FadeIn,
