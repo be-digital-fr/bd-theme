@@ -43,7 +43,10 @@ export default function DefaultCard({ product }: Product) {
       : '0.0';
 
   return (
-    <Card className="md:max-w-80 bg-transparent border-none shadow-none">
+    <Card
+      className="md:max-w-80 bg-transparent border-none shadow-none"
+      role="article"
+      aria-label={`Product card for ${product.name}`}>
       <CardContent className="p-0">
         {/* Main container with image and information */}
         <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
@@ -51,10 +54,11 @@ export default function DefaultCard({ product }: Product) {
           <div className="relative w-full h-56">
             <Image
               src={product.image}
-              alt={product.name}
+              alt={`Image of ${product.name}`}
               fill
               sizes="(max-width: 768px) 100vw, 100vw"
               className="object-contain"
+              priority
             />
           </div>
 
@@ -62,26 +66,43 @@ export default function DefaultCard({ product }: Product) {
           <FavoriteButton
             productId={product.id}
             className="absolute top-2 right-2"
+            aria-label={`Add ${product.name} to favorites`}
           />
 
           {/* Information bar at bottom of image */}
-          <div className="w-full px-4 flex items-center justify-between absolute bottom-4 left-1/2 -translate-x-1/2">
+          <div
+            className="w-full px-4 flex items-center justify-between absolute bottom-4 left-1/2 -translate-x-1/2"
+            role="group"
+            aria-label="Product information">
             {/* Display average rating and number of reviews */}
-            <div className="flex items-center gap-1">
+            <div
+              className="flex items-center gap-1"
+              role="group"
+              aria-label="Rating information">
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-primary rounded-full size-5 p-3">
+                className="bg-primary rounded-full size-5 p-3"
+                aria-hidden="true">
                 <Star fill="white" className="text-white" />
               </Button>
-              <span className="text-sm font-medium">{averageRating}</span>
-              <span className="text-xs text-muted-foreground">
+              <span
+                className="text-sm font-medium"
+                aria-label={`Rating: ${averageRating} out of 5`}>
+                {averageRating}
+              </span>
+              <span
+                className="text-xs text-muted-foreground"
+                aria-label={`${product.reviews?.length || 0} reviews`}>
                 ({product.reviews?.length || 0})
               </span>
             </div>
 
             {/* Preparation time */}
-            <div className="flex items-center gap-1">
+            <div
+              className="flex items-center gap-1"
+              role="group"
+              aria-label="Preparation time">
               <span className="text-sm font-medium">
                 ~{product.preparationTime}
               </span>
@@ -92,12 +113,20 @@ export default function DefaultCard({ product }: Product) {
 
         {/* Card footer with name and actions */}
         <CardFooter className="flex flex-col gap-2 items-start p-0 mt-4">
-          <h2 className="text-md font-medium">{product.name}</h2>
+          <h2 className="text-md font-medium" id={`product-name-${product.id}`}>
+            {product.name}
+          </h2>
 
           {/* Action buttons and price display */}
-          <div className="w-full flex items-center justify-between gap-1">
+          <div
+            className="w-full flex items-center justify-between gap-1"
+            role="group"
+            aria-label="Product actions">
             <AddToCartButton product={product} />
-            <Button variant={'ghost'} className="text-primary">
+            <Button
+              variant={'ghost'}
+              className="text-primary"
+              aria-label={`Price: ${product.price} euros`}>
               {product.price} €
             </Button>
           </div>
