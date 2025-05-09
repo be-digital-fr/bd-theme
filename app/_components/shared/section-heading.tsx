@@ -45,7 +45,7 @@ export default function SectionHeading({ title, link, linkText }: SectionHeading
       <FadeInUp>
         <Button
           variant="lime"
-          className="h-8 md:h-10 shadow"
+          className="h-8 md:h-10 "
           asChild
           aria-label={linkText || `View all ${title}`}
         >

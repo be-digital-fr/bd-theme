@@ -85,7 +85,7 @@ export default function TestimonialCarousel() {
       {/* Animated title and navigation controls */}
       <div className="flex items-center justify-between gap-4 mb-2">
         <WordsPullUp
-          text="Ce que disent nos clients"
+          text="Customer Testimonials"
           containerClassName="justify-start mb-6 md:mb-0 max-w-xs"
           className="text-2xl md:text-4xl font-medium"
         />
@@ -106,7 +106,7 @@ export default function TestimonialCarousel() {
           </button>
 
           {/* Indicator for current testimonial number */}
-          <div className="text-xs text-muted-foreground font-semibold">
+          <div className="hidden md:block text-xs text-muted-foreground font-semibold">
             <span className="text-primary">
               {formatNumber(currentTestimonial)}
             </span>{' '}
@@ -143,7 +143,7 @@ export default function TestimonialCarousel() {
                 “{t.content}”
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden relative">
+                <div className="w-10 h-10 rounded-full overflow-hidden relative">
                   <Image
                     src={t.image}
                     alt={`Photo de ${t.author}`}
