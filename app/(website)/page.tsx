@@ -116,7 +116,7 @@ export default async function Home() {
               <Button
                 size="lg"
                 aria-label="Order Now"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]">
+                className="bg-primary-dark text-white hover:bg-primary-dark/90 focus:ring-2 focus:ring-offset-2 focus:ring-primary min-w-[48px] min-h-[48px]">
                 <Link href="/menu">Order Now</Link>
               </Button>
 
