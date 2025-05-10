@@ -5,7 +5,7 @@ import { Button, Separator } from '../_components/ui';
 import {
   BlogSection,
   Container,
-  FeatureWithIcon,
+  FeatureSection,
   SectionHeading,
   TestimonialSection,
 } from '../_components/shared';
@@ -42,11 +42,14 @@ async function fetchData(url: string) {
 }
 
 export default async function Home() {
-  const [productsData, vegetarianProductsData, categoriesData] = await Promise.all([
-    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
-    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`),
-    fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
-  ]);
+  const [productsData, vegetarianProductsData, categoriesData] =
+    await Promise.all([
+      fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`),
+      fetchData(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/filter?categoryName=vegetarian`
+      ),
+      fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
+    ]);
 
   console.log(productsData);
   return (
@@ -130,37 +133,7 @@ export default async function Home() {
         </section>
 
         {/* Features section */}
-        <Container>
-          <StaggerContainer className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-10">
-            <FeatureWithIcon
-              icon="/icons/fast.svg"
-              title="Fast & Reliable Delivery"
-            />
-            <FeatureWithIcon
-              icon="/icons/secure.svg"
-              title="Secure Multiple Payment"
-              className="md:hidden"
-            />
-            <FeatureWithIcon
-              icon="/icons/secure.svg"
-              title="Secure Payment"
-              className="hidden md:flex"
-            />
-            <FeatureWithIcon
-              icon="/icons/healthy.svg"
-              title="Healthy & Fresh Ingredients"
-            />
-            <FeatureWithIcon
-              icon="/icons/click-and-collect.svg"
-              title="Click & Collect"
-            />
-            <FeatureWithIcon
-              icon="/icons/card.svg"
-              title="Multiple Payment"
-              className="hidden md:flex"
-            />
-          </StaggerContainer>
-        </Container>
+        <FeatureSection />
 
         {/* Separator */}
         <Separator className="my-10 bg-card data-[orientation=horizontal]:h-[0.1rem]" />

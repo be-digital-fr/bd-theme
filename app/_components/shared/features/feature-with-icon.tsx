@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { StaggerItem } from "../animation";
+import { StaggerItem } from "../../animation";
 
 export type FeatureWithIconProps = {
   icon: string;

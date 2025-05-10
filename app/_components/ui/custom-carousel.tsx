@@ -123,7 +123,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
       {/* Navigation Controls - Only shown when scrolling is possible */}
 
       <MotionDiv
-        className="flex justify-end space-x-4 mb-4 z-10 relative"
+        className="flex justify-end space-x-4 mb-4 z-10 relative px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}>
@@ -136,7 +136,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
             onClick={scrollPrev}
             variant={canScrollPrev ? 'default' : 'ghost'}
             size="icon"
-            className={`rounded-full size-10 lg:size-14 ${
+            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${
               !canScrollPrev && 'bg-gray-300 cursor-not-allowed'
             }`}
             aria-label="Previous slide"
@@ -150,7 +150,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
 
           {/* Progress Bar */}
           <div className="flex-1 mx-4">
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className='h-1.5 bg-card/60' />
           </div>
 
           {/* Next Button */}
@@ -158,7 +158,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
             onClick={scrollNext}
             variant={canScrollNext ? 'default' : 'ghost'}
             size="icon"
-            className={`rounded-full size-10 lg:size-14 ${
+            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${
               !canScrollNext && 'bg-gray-300 cursor-not-allowed'
             }`}
             aria-label="Next slide"
