@@ -1,19 +1,21 @@
-import { isServer, QueryClient } from "@tanstack/react-query";
+import { isServer, QueryClient } from '@tanstack/react-query';
 
 /**
  * Creates and configures a new QueryClient instance
- * 
+ *
  * @returns {QueryClient} Configured QueryClient instance with default options
  */
 function makeQueryClient() {
-  return new QueryClient({
+  const queryClient = new QueryClient({
     defaultOptions: {
-      queries: { 
-        // Cache results for 1 minute before considering them stale
-        staleTime: 60 * 1000 
+      queries: {
+        staleTime: 60 * 1000, // 1 minute
+        refetchOnWindowFocus: false,
       },
     },
   });
+
+  return queryClient;
 }
 
 // Singleton QueryClient instance for browser environment
@@ -21,13 +23,13 @@ let browserQueryClient: QueryClient | undefined;
 
 /**
  * Gets a QueryClient instance based on the execution environment
- * 
+ *
  * - For server-side rendering: Creates a new QueryClient instance each time
  * - For client-side: Reuses a singleton QueryClient instance
- * 
+ *
  * This approach prevents memory leaks on the server while maintaining
  * a persistent cache on the client.
- * 
+ *
  * @returns {QueryClient} QueryClient instance
  */
 export default function getQueryClient() {

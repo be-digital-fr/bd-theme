@@ -8,12 +8,10 @@ import { motion } from 'framer-motion';
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from '@/app/_components/ui/carousel';
-import { Prisma } from '@/lib';
-import { Button, DefaultCard } from '@/app/_components/ui';
+import { Button } from '@/app/_components/ui';
 import { Progress } from '@/app/_components/ui/progress';
 
 // Enhance components with motion capabilities
@@ -35,13 +33,12 @@ const MotionDiv = motion.create('div');
  * Props:
  * @param {React.PropsWithChildren} children - Content to be displayed in carousel slides
  */
-type Product = Prisma.ProductGetPayload<{
-  include: {
-    reviews: true;
-  };
-}>;
 
-export default function CustomCarousel({ children }: React.PropsWithChildren) {
+export default function CustomCarousel({
+  children,
+  buttonSize,
+  iconSize,
+}: React.PropsWithChildren<{ buttonSize?: string, iconSize?: string }>) {
   // State for carousel API and navigation controls
   const [api, setApi] = React.useState<any>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -102,7 +99,7 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
   }, [api, onSelect]);
 
   return (
-    <section className="space-y-4" aria-label="Popular dishes carousel">
+    <section className="space-y-4 w-full" aria-label="Popular dishes carousel">
       {/* Main Carousel Component */}
       <Carousel
         setApi={setApi}
@@ -136,21 +133,21 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
             onClick={scrollPrev}
             variant={canScrollPrev ? 'default' : 'ghost'}
             size="icon"
-            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${
+            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
               !canScrollPrev && 'bg-gray-300 cursor-not-allowed'
             }`}
             aria-label="Previous slide"
             tabIndex={0}
             disabled={!canScrollPrev}>
             <ChevronLeft
-              className="text-white size-6 lg:size-8"
+              className={`text-white size-6 lg:size-8 ${iconSize}`}
               aria-hidden="true"
             />
           </Button>
 
           {/* Progress Bar */}
           <div className="flex-1 mx-4">
-            <Progress value={progress} className='h-1.5 bg-card/60' />
+            <Progress value={progress} className="h-1.5 bg-card/60" />
           </div>
 
           {/* Next Button */}
@@ -158,13 +155,13 @@ export default function CustomCarousel({ children }: React.PropsWithChildren) {
             onClick={scrollNext}
             variant={canScrollNext ? 'default' : 'ghost'}
             size="icon"
-            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${
+            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
               !canScrollNext && 'bg-gray-300 cursor-not-allowed'
             }`}
             aria-label="Next slide"
             disabled={!canScrollNext}>
             <ChevronRight
-              className="text-white size-6 lg:size-8"
+              className={`text-white size-6 lg:size-8 ${iconSize}`}
               aria-hidden="true"
             />
           </Button>

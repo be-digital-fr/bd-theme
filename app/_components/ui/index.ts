@@ -18,3 +18,4 @@ export * from './tabs';
 export * from './skeleton';
 export * from './badge';
 export * from './progress'
+export * from './pagination'

@@ -1,27 +1,72 @@
 import { prisma } from '@/lib';
 import { NextResponse } from 'next/server';
 
+// Fonction pour décoder un slug en nom de catégorie
+const decodeSlug = (slug: string) => {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 /**
  * GET /api/v1/product
- * Récupère tous les produits avec leurs relations
+ * Récupère les produits avec pagination et filtrage par catégorie
  * 
- * @returns {Promise<NextResponse>} Liste des produits avec leurs catégories, variants et extras
+ * @param {Request} request - La requête contenant les paramètres de pagination et de filtrage
+ * @returns {Promise<NextResponse>} Liste paginée des produits avec leurs catégories, variants et extras
  */
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Récupération de tous les produits avec leurs relations
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '12');
+    const categorySlug = searchParams.get('category');
+    const skip = (page - 1) * limit;
+
+    // Construction de la requête avec filtrage
+    const where = categorySlug
+      ? {
+          category: {
+            name: decodeSlug(categorySlug),
+          },
+        }
+      : {};
+
+    // Récupération du nombre total de produits avec filtrage
+    const total = await prisma.product.count({ where });
+
+    // Récupération des produits avec pagination et filtrage
     const products = await prisma.product.findMany({
+      where,
       include: {
-        category: true,    // Inclut les informations de la catégorie
-        variants: true,    // Inclut les variantes disponibles
-        extras: true,      // Inclut les extras disponibles
+        category: true,
+        variants: true,
+        extras: true,
       },
       orderBy: {
-        createdAt: 'desc'  // Trie par date de création décroissante
-      }
+        createdAt: 'desc'
+      },
+      skip,
+      take: limit
     });
 
-    return NextResponse.json(products);
+    // Calcul des métadonnées de pagination
+    const totalPages = Math.ceil(total / limit);
+    const hasNextPage = page < totalPages;
+    const hasPreviousPage = page > 1;
+
+    return NextResponse.json({
+      data: products,
+      pagination: {
+        total,
+        totalPages,
+        currentPage: page,
+        limit,
+        hasNextPage,
+        hasPreviousPage
+      }
+    });
   } catch (error) {
     console.error('Erreur lors de la récupération des produits:', error);
     return NextResponse.json(

@@ -8,6 +8,7 @@ import { AuthProvider } from '@/infrastructure/better-auth/provider';
 import { ReactQueryProvider } from '@/infrastructure/react-query';
 
 export default function Provider({ children }: PropsWithChildren) {
+  
   return (
     <ReactQueryProvider>
       <AuthProvider>

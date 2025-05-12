@@ -36,7 +36,8 @@ export default function RootLayout({
 }: PropsWithChildren<RootLayoutProps>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.className} ${poppins.className} ${plusJakartaSans.className}`}>
+      <body
+        className={`${dmSans.className} ${poppins.className} ${plusJakartaSans.className}`}>
         <Provider>
           {children}
 

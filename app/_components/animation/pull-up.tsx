@@ -59,7 +59,7 @@ export function WordsPullUp({
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
   return (
-    <div className={cn("flex justify-center flex-wrap", containerClassName)}>
+    <div className={cn("flex justify-center flex-wrap", containerClassName)} role="list" aria-label={text}>
       {splittedText.map((current, i) => (
         <MotionDiv
           key={i}
