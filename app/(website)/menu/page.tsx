@@ -41,48 +41,38 @@ export const metadata: Metadata = {
 };
 
 const fetchCategories = async () => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`, {
-      next: { revalidate: 3600 },
-      cache: 'force-cache'
-    });
-    
-    if (!response.ok) {
-      console.error('Error fetching categories:', response.statusText);
-      return [];
-    }
-    
-    return response.json();
-  } catch (error) {
+  const [error, data] = await catchError(
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`).then(
+      async (res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      }
+    )
+  );
+
+  if (error) {
     console.error('Error fetching categories:', error);
     return [];
   }
+
+  return data as Category[];
 };
 
 const fetchProducts = async () => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`, {
-      next: { revalidate: 3600 },
-      cache: 'force-cache'
-    });
-    
-    if (!response.ok) {
-      console.error('Error fetching products:', response.statusText);
-      return {
-        data: [],
-        pagination: {
-          total: 0,
-          totalPages: 0,
-          currentPage: 1,
-          limit: 10,
-          hasNextPage: false,
-          hasPreviousPage: false,
-        },
-      };
-    }
-    
-    return response.json();
-  } catch (error) {
+  const [error, data] = await catchError(
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`).then(
+      async (res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      }
+    )
+  );
+
+  if (error) {
     console.error('Error fetching products:', error);
     return {
       data: [],
@@ -96,6 +86,8 @@ const fetchProducts = async () => {
       },
     };
   }
+
+  return data as ProductPaginationProps['initialData'];
 };
 
 export default async function MenuPage() {
@@ -104,20 +96,6 @@ export default async function MenuPage() {
     fetchCategories(),
     fetchProducts(),
   ]);
-
-  // Ensure we have default values
-  const categories = categoriesData || [];
-  const products = productsData || {
-    data: [],
-    pagination: {
-      total: 0,
-      totalPages: 0,
-      currentPage: 1,
-      limit: 10,
-      hasNextPage: false,
-      hasPreviousPage: false,
-    },
-  };
 
   return (
     <main className="mt-28 space-y-10" role="main" aria-label="Menu page">
@@ -139,11 +117,11 @@ export default async function MenuPage() {
       </Container>
 
       <Suspense fallback={<LoadingFilter />}>
-        <FilterCategory categories={categories} />
+        <FilterCategory categories={categoriesData} />
       </Suspense>
 
       <Container>
-        <ProductPagination initialData={products} />
+        <ProductPagination initialData={productsData} />
       </Container>
 
       <Container className="space-y-4 flex flex-col justify-center items-center text-center">
