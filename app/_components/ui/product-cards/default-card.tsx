@@ -56,7 +56,7 @@ export default function DefaultCard({ product }: Product) {
               src={product.image}
               alt={`Image of ${product.name}`}
               fill
-              sizes="(max-width: 768px) 100vw, 100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
               className="object-contain"
               priority
             />
