@@ -26,7 +26,7 @@ export default function FilterMobile({
         All
       </Button>
 
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <Button
           key={category.id}
           variant="outline"

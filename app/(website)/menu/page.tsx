@@ -161,7 +161,7 @@ export default async function MenuPage() {
         <ul
           className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mt-10"
           aria-label="Food delivery partners">
-          {partners.map((partner) => (
+          {partners?.map((partner) => (
             <li key={partner.alt}>
               <Button
                 variant="outline"

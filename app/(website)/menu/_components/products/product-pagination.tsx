@@ -135,7 +135,7 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
         <div className="space-y-4">
           <div role="status" className="sr-only">Loading products...</div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, index) => (
+            {Array.from({ length: 6 })?.map((_, index) => (
               <div
                 key={index}
                 className="animate-pulse bg-gray-200 rounded-lg h-64"
@@ -150,7 +150,7 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.data.map((product: ProductType) => (
+            {data.data?.map((product: ProductType) => (
               <DefaultCard key={product.id} product={product} />
             ))}
           </div>
@@ -175,7 +175,7 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
                   />
                 </PaginationItem>
 
-                {paginationItems.map((pageNumber) => (
+                {paginationItems?.map((pageNumber) => (
                   <PaginationItem key={pageNumber}>
                     <PaginationLink
                       href="#"
