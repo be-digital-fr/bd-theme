@@ -32,32 +32,42 @@ const decodeSlug = (slug: string) => {
 /**
  * Custom hook for managing category filter state in URL query params
  * @returns {Object} Filter state and handlers
- * - selectedCategory: Current selected category (decoded from slug)
- * - setSelectedCategory: Function to update selected category
- * - resetFilter: Function to clear category filter
+ * - selectedCategories: Array of currently selected categories
+ * - toggleCategory: Function to toggle a category selection
+ * - resetFilter: Function to clear all category filters
  */
 export function useFilterStore() {
-  const [selectedCategory, setSelectedCategory] = useQueryState('category');
+  const [selectedCategories, setSelectedCategories] = useQueryState('categories');
   const [, setPage] = useQueryState('page');
 
   /**
-   * Updates the selected category and resets pagination
-   * @param category - Category name to set, or null to clear
+   * Toggles a category selection
+   * @param category - Category name to toggle
    */
-  const handleSetCategory = (category: string | null) => {
-    setSelectedCategory(category ? createSlug(category) : null);
-    // Reset to page 1 when category changes
+  const toggleCategory = (category: string) => {
+    const currentCategories = selectedCategories ? selectedCategories.split(',') : [];
+    const categorySlug = createSlug(category);
+    
+    const newCategories = currentCategories.includes(categorySlug)
+      ? currentCategories.filter(c => c !== categorySlug)
+      : [...currentCategories, categorySlug];
+
+    setSelectedCategories(newCategories.length > 0 ? newCategories.join(',') : null);
+    // Reset to page 1 when categories change
     setPage('1');
   };
 
   /**
-   * Clears the category filter
+   * Clears all category filters
    */
-  const resetFilter = () => handleSetCategory(null);
+  const resetFilter = () => {
+    setSelectedCategories(null);
+    setPage('1');
+  };
 
   return {
-    selectedCategory: selectedCategory ? decodeSlug(selectedCategory) : null,
-    setSelectedCategory: handleSetCategory,
+    selectedCategories: selectedCategories ? selectedCategories.split(',').map(decodeSlug) : [],
+    toggleCategory,
     resetFilter,
   };
 }

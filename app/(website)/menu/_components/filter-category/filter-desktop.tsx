@@ -9,6 +9,7 @@ import React from 'react';
 import { useFilterStore } from '../../../../store/filter-store';
 import { Button } from '@/app/_components/ui';
 import { cn } from '@/app/_lib';
+import { WordsPullUp } from '@/app/_components/animation';
 
 /**
  * FilterDesktop Component
@@ -21,7 +22,7 @@ import { cn } from '@/app/_lib';
  */
 const FilterDesktop = React.memo(
   ({ categories }: { categories: Category[] }) => {
-    const { selectedCategory, setSelectedCategory, resetFilter } =
+    const { selectedCategories, toggleCategory, resetFilter } =
       useFilterStore();
 
     return (
@@ -38,14 +39,14 @@ const FilterDesktop = React.memo(
                   className="w-10"
                   key={category.id}
                   category={category}
-                  isSelected={selectedCategory === category.name}
-                  onClick={() => setSelectedCategory(category.name)}
+                  isSelected={selectedCategories.includes(category.name)}
+                  onClick={() => toggleCategory(category.name)}
                 />
               </CarouselItem>
             ))}
           </CustomCarousel>
 
-          {selectedCategory && (
+          {selectedCategories.length > 0 && (
             <Button
               variant="outline"
               onClick={resetFilter}
@@ -87,12 +88,12 @@ const FilterItem = React.memo(
   }) => {
     return (
       <div
+        data-testid={`filter-item-${category.name}`}
         className={`ml-2 py-4 flex flex-col items-center gap-2 ${className}`}
         onClick={onClick}>
         <div
-          className={cn(
-            isSelected && 'ring-2 ring-accent rounded-full p-1'
-          )}>
+          data-testid={`filter-item-child-${category.name}`}
+          className={cn(isSelected && 'ring-2 ring-accent rounded-full p-1')}>
           <div className={'relative h-10 w-10'}>
             <Image
               src={category.image as string}
@@ -103,7 +104,11 @@ const FilterItem = React.memo(
           </div>
         </div>
 
-        <h3 className={cn('text-sm', isSelected && 'text-accent font-medium')}>
+        <h3
+          aria-label={category.name}
+          aria-level={3}
+          title={`category-${category.name}`}
+          className={cn('text-sm', isSelected && 'text-accent font-medium')}>
           {category.name}
         </h3>
       </div>

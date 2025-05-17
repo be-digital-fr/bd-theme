@@ -124,6 +124,7 @@ export default function DefaultCard({ product }: Product) {
             aria-label="Product actions">
             <AddToCartButton product={product} />
             <Button
+              data-testid={`product-price-${product.name}`}
               variant={'ghost'}
               className="text-primary"
               aria-label={`Price: ${product.price} euros`}>

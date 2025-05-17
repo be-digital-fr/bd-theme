@@ -9,11 +9,19 @@ import {
   TestimonialSection,
 } from '@/app/_components/shared';
 import { Button } from '@/app/_components/ui';
-import { FilterDesktop, FilterMobile } from './_components/filter-category';
-import { ProductPagination } from './_components/products/product-pagination';
+import {
+  ProductPagination,
+  ProductPaginationProps,
+} from './_components/products/product-pagination';
 
 // Data imports
 import { partners } from '../about/_components/hero/data';
+import { catchError } from '@/utils';
+import { Category } from '@/lib';
+import { Metadata } from 'next';
+import { FilterCategory } from './_components/filter-category';
+import { Suspense } from 'react';
+import LoadingFilter from './_components/filter-category/loading-filter';
 
 /**
  * MenuPage Component
@@ -25,15 +33,68 @@ import { partners } from '../about/_components/hero/data';
  * - Order via app section with partner logos
  * - Testimonials and blog sections
  */
+
+export const metadata: Metadata = {
+  title: 'Eat a Box - Menu',
+  description:
+    'Discover our delicious menu featuring fresh burgers, pizzas, desserts and more. Order online for delivery or pickup from Eat a Box - Your favorite local restaurant.',
+};
+
+const fetchCategories = async () => {
+  const [error, data] = await catchError(
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`).then(
+      async (res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      }
+    )
+  );
+
+  if (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+
+  return data as Category[];
+};
+
+const fetchProducts = async () => {
+  const [error, data] = await catchError(
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`).then(
+      async (res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      }
+    )
+  );
+
+  if (error) {
+    console.error('Error fetching products:', error);
+    return {
+      data: [],
+      pagination: {
+        total: 0,
+        totalPages: 0,
+        currentPage: 1,
+        limit: 10,
+        hasNextPage: false,
+        hasPreviousPage: false,
+      },
+    };
+  }
+
+  return data as ProductPaginationProps['initialData'];
+};
+
 export default async function MenuPage() {
   // Fetch categories and products data in parallel
   const [categoriesData, productsData] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`).then(
-      (res) => res.json()
-    ),
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`).then((res) =>
-      res.json()
-    ),
+    fetchCategories(),
+    fetchProducts(),
   ]);
 
   return (
@@ -41,11 +102,13 @@ export default async function MenuPage() {
       <Container
         maxWidth="md"
         className="space-y-4 flex flex-col justify-center items-center text-center">
-        <WordsPullUp
-          text="Our menu"
-          className="text-2xl md:text-4xl font-medium text-primary-dark"
-          aria-level={1}
-        />
+        <h1>
+          <WordsPullUp
+            text="Our menu"
+            className="text-2xl md:text-4xl font-medium text-primary-dark"
+            aria-level={1}
+          />
+        </h1>
 
         <p className="text-base" role="contentinfo">
           Lorem ipsum dolor sit amet consectetur adipiscing elit ugue quam diam
@@ -53,8 +116,9 @@ export default async function MenuPage() {
         </p>
       </Container>
 
-      <FilterDesktop categories={categoriesData} />
-      <FilterMobile categories={categoriesData} />
+      <Suspense fallback={<LoadingFilter />}>
+        <FilterCategory categories={categoriesData} />
+      </Suspense>
 
       <Container>
         <ProductPagination initialData={productsData} />

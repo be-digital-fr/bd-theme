@@ -9,7 +9,7 @@
  * @template E - Type of errors to catch
  */
 export function catchError<T, E extends new (message?: string) => Error>(
-  promise: Promise<T>,
+  promise: Promise<T | any>,
   errorsToCatch?: E[]
 ): Promise<[undefined, T] | [InstanceType<E>]> {
   return promise

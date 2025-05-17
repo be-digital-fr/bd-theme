@@ -56,7 +56,7 @@ export function ProductSearch() {
       console.error('Error searching products:', error);
       setProducts([]);
     } else {
-      setProducts(results);
+      setProducts(results as Product[]);
     }
 
     setIsLoading(false);

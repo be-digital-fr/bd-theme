@@ -11,7 +11,7 @@ export default function FilterMobile({
 }: {
   categories: Category[];
 }) {
-  const { selectedCategory, setSelectedCategory, resetFilter } = useFilterStore();
+  const { selectedCategories, toggleCategory, resetFilter } = useFilterStore();
 
   return (
     <Container className="md:hidden flex gap-2 overflow-x-auto pb-2">
@@ -19,7 +19,7 @@ export default function FilterMobile({
         variant="outline"
         onClick={resetFilter}
         className={`border-primary-dark rounded-full ${
-          selectedCategory === null
+          selectedCategories.length === 0
             ? 'bg-primary-dark text-white'
             : 'text-primary-dark'
         }`}>
@@ -30,9 +30,9 @@ export default function FilterMobile({
         <Button
           key={category.id}
           variant="outline"
-          onClick={() => setSelectedCategory(category.name)}
+          onClick={() => toggleCategory(category.name)}
           className={`border-primary-dark rounded-full ${
-            selectedCategory === category.name
+            selectedCategories.includes(category.name)
               ? 'bg-primary-dark text-white'
               : 'text-primary-dark'
           }`}>

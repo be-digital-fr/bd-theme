@@ -21,14 +21,16 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
-    const categorySlug = searchParams.get('category');
+    const categoriesParam = searchParams.get('categories');
     const skip = (page - 1) * limit;
 
     // Construction de la requête avec filtrage
-    const where = categorySlug
+    const where = categoriesParam
       ? {
           category: {
-            name: decodeSlug(categorySlug),
+            name: {
+              in: categoriesParam.split(',').map(decodeSlug),
+            },
           },
         }
       : {};

@@ -145,7 +145,7 @@ export default async function Home() {
             link="/menu"
           />
 
-          <ProductCarousel products={productsData || []} />
+          <ProductCarousel products={productsData.data || []} />
         </Container>
 
         {/* Vegetarian section */}

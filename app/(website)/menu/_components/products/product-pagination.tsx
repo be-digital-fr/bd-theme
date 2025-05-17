@@ -14,6 +14,7 @@ import {
 import { DefaultCard } from '@/app/_components/ui';
 import { Prisma } from '@/lib';
 import { useFilterStore } from '../../../../store/filter-store';
+import { ProductType } from '@/app/types/Product.type';
 
 /**
  * Type definition for a Product with its relations
@@ -38,8 +39,8 @@ type Product = Prisma.ProductGetPayload<{
  * @property {Product[]} initialData.data - Array of products
  * @property {Object} initialData.pagination - Pagination metadata
  */
-type ProductPaginationProps = {
-  initialData?: {
+export type ProductPaginationProps = {
+  initialData: {
     data: Product[];
     pagination: {
       total: number;
@@ -55,14 +56,14 @@ type ProductPaginationProps = {
 /**
  * Fetches products from the API with pagination and category filtering
  * @param {number} page - Current page number
- * @param {string|null} categorySlug - Optional category slug for filtering
+ * @param {string[]} categories - Array of category names for filtering
  * @returns {Promise<Object>} Products data with pagination metadata
  */
-const fetchProducts = async (page: number, categorySlug?: string | null) => {
+const fetchProducts = async (page: number, categories?: string[]) => {
   const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`);
   url.searchParams.set('page', page.toString());
-  if (categorySlug) {
-    url.searchParams.set('category', categorySlug);
+  if (categories && categories.length > 0) {
+    url.searchParams.set('categories', categories.join(','));
   }
 
   const response = await fetch(url.toString());
@@ -74,10 +75,10 @@ const fetchProducts = async (page: number, categorySlug?: string | null) => {
 
 /**
  * ProductPagination Component
- * 
+ *
  * A client-side component that displays a paginated grid of products with category filtering.
  * Uses React Query for data fetching and caching, and nuqs for URL state management.
- * 
+ *
  * @param {ProductPaginationProps} props - Component props
  * @returns {JSX.Element} Rendered component
  */
@@ -88,15 +89,15 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
     parse: (value) => value,
     serialize: (value) => value,
   });
-  const { selectedCategory } = useFilterStore();
+  const { selectedCategories } = useFilterStore();
 
   const currentPage = parseInt(page);
 
   // Fetch products with React Query
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['products', currentPage, selectedCategory],
-    queryFn: () => fetchProducts(currentPage, selectedCategory),
-    initialData: selectedCategory === null ? initialData : undefined,
+    queryKey: ['products', currentPage, selectedCategories],
+    queryFn: () => fetchProducts(currentPage, selectedCategories),
+    initialData: selectedCategories.length === 0 ? initialData : undefined,
     placeholderData: initialData,
   });
 
@@ -109,12 +110,13 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
       setPage(newPage.toString());
       if (productsContainerRef.current) {
         const offset = 100;
-        const elementPosition = productsContainerRef.current.getBoundingClientRect().top;
+        const elementPosition =
+          productsContainerRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     },
@@ -124,106 +126,90 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
   // Generate pagination items array
   const paginationItems = useMemo(() => {
     if (!data?.pagination) return [];
-    return Array.from(
-      { length: data.pagination.totalPages },
-      (_, i) => i + 1
-    );
+    return Array.from({ length: data.pagination.totalPages }, (_, i) => i + 1);
   }, [data?.pagination]);
 
-  if (isLoading) {
-    return (
-      <div role="status" aria-label="Loading products">
-        <div className="animate-pulse space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-64 bg-gray-200 rounded-lg" />
+  return (
+    <div ref={productsContainerRef} className="space-y-8">
+      {isLoading ? (
+        <div className="space-y-4">
+          <div role="status" className="sr-only">Loading products...</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="animate-pulse bg-gray-200 rounded-lg h-64"
+              />
             ))}
           </div>
         </div>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div role="alert" className="text-center py-10">
-        <p className="text-lg text-red-600">
-          Une erreur est survenue lors du chargement des produits
-        </p>
-      </div>
-    );
-  }
-
-  if (data.data.length === 0) {
-    return (
-      <div role="status" className="text-center py-10">
-        <p className="text-lg text-gray-600">
-          Aucun produit trouvé pour cette catégorie
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-8" role="region" aria-label="Liste des produits">
-      <div 
-        ref={productsContainerRef} 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        role="list"
-        aria-label="Grille de produits">
-        {data.data.map((product: Product) => (
-          <div key={product.id} role="listitem">
-            <DefaultCard product={product} />
-          </div>
-        ))}
-      </div>
-
-      <nav aria-label="Pagination des produits">
-        <Pagination className="mt-8 justify-normal">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={() => handlePageChange(currentPage - 1)}
-                className={
-                  !data.pagination.hasPreviousPage
-                    ? 'pointer-events-none opacity-50'
-                    : ''
-                }
-                aria-disabled={!data.pagination.hasPreviousPage}
-                aria-label="Page précédente"
-              />
-            </PaginationItem>
-
-            {paginationItems.map((pageNum) => (
-              <PaginationItem key={pageNum}>
-                <PaginationLink
-                  href="#"
-                  onClick={() => handlePageChange(pageNum)}
-                  isActive={pageNum === currentPage}
-                  aria-current={pageNum === currentPage ? 'page' : undefined}
-                  aria-label={`Page ${pageNum}`}>
-                  {pageNum}
-                </PaginationLink>
-              </PaginationItem>
+      ) : isError ? (
+        <div className="text-center text-red-500">
+          Error loading products. Please try again later.
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.data.map((product: ProductType) => (
+              <DefaultCard key={product.id} product={product} />
             ))}
+          </div>
 
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={() => handlePageChange(currentPage + 1)}
-                className={
-                  !data.pagination.hasNextPage
-                    ? 'pointer-events-none opacity-50'
-                    : ''
-                }
-                aria-disabled={!data.pagination.hasNextPage}
-                aria-label="Page suivante"
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </nav>
+          {data.pagination.totalPages > 1 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (data.pagination.hasPreviousPage) {
+                        handlePageChange(currentPage - 1);
+                      }
+                    }}
+                    className={
+                      !data.pagination.hasPreviousPage
+                        ? 'pointer-events-none opacity-50'
+                        : ''
+                    }
+                  />
+                </PaginationItem>
+
+                {paginationItems.map((pageNumber) => (
+                  <PaginationItem key={pageNumber}>
+                    <PaginationLink
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(pageNumber);
+                      }}
+                      isActive={pageNumber === currentPage}>
+                      {pageNumber}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (data.pagination.hasNextPage) {
+                        handlePageChange(currentPage + 1);
+                      }
+                    }}
+                    className={
+                      !data.pagination.hasNextPage
+                        ? 'pointer-events-none opacity-50'
+                        : ''
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </>
+      )}
     </div>
   );
 }
