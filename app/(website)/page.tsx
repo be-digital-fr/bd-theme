@@ -29,7 +29,10 @@ export const metadata: Metadata = {
 
 async function fetchData(url: string) {
   try {
-    const response = await fetch(url, { next: { revalidate: 3600 } });
+    const response = await fetch(url, { 
+      next: { revalidate: 3600 },
+      cache: 'force-cache'
+    });
     if (!response.ok) {
       console.error(`Error fetching ${url}:`, response.statusText);
       return null;
@@ -51,7 +54,11 @@ export default async function Home() {
       fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/category`),
     ]);
 
-  console.log(productsData);
+  // Provide default values for when data is null
+  const products = productsData?.data || [];
+  const vegetarianProducts = vegetarianProductsData?.products || [];
+  const categories = categoriesData || [];
+
   return (
     <>
       {/* Skip link for accessibility */}
@@ -145,7 +152,7 @@ export default async function Home() {
             link="/menu"
           />
 
-          <ProductCarousel products={productsData.data || []} />
+          <ProductCarousel products={products} />
         </Container>
 
         {/* Vegetarian section */}
@@ -155,7 +162,7 @@ export default async function Home() {
             link="/menu?categoryName=vegetarian"
           />
 
-          <ProductCarousel products={vegetarianProductsData?.products || []} />
+          <ProductCarousel products={vegetarianProducts} />
         </Container>
 
         {/* Categories section */}
@@ -168,7 +175,7 @@ export default async function Home() {
             />
 
             <div className="hidden md:grid grid-cols-2 gap-4 lg:grid-cols-4 mt-10">
-              {categoriesData?.map((category: Category, index: number) => (
+              {categories.map((category: Category, index: number) => (
                 <ScaleIn key={category.id} delay={index * 0.1}>
                   <CategoryCard category={category} />
                 </ScaleIn>
@@ -176,7 +183,7 @@ export default async function Home() {
             </div>
 
             <div className="md:hidden">
-              <CategoryCarrousel categories={categoriesData || []} />
+              <CategoryCarrousel categories={categories} />
             </div>
           </Container>
 
