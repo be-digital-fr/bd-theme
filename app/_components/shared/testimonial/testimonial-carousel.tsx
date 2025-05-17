@@ -152,9 +152,9 @@ export default function TestimonialCarousel() {
                     sizes="100%"
                   />
                 </div>
-                <h4 className="text-sm font-semibold">
+                <h3 className="text-sm font-semibold">
                   {t.author}
-                </h4>
+                </h3>
               </div>
             </CarouselItem>
           ))}

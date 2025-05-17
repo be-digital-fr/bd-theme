@@ -136,26 +136,25 @@ export default async function MenuPage() {
           vitae velit bibendum elementum dolor.
         </p>
 
-        <div
+        <ul
           className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mt-10"
-          role="list"
           aria-label="Food delivery partners">
           {partners.map((partner) => (
-            <Button
-              variant="outline"
-              aria-label={partner.alt}
-              role="listitem"
-              key={partner.alt}
-              className="w-full h-24 bg-white">
-              <Image
-                src={partner.src}
-                alt={partner.alt}
-                width={100}
-                height={100}
-              />
-            </Button>
+            <li key={partner.alt}>
+              <Button
+                variant="outline"
+                aria-label={partner.alt}
+                className="w-full h-24 bg-white">
+                <Image
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={100}
+                  height={100}
+                />
+              </Button>
+            </li>
           ))}
-        </div>
+        </ul>
       </Container>
 
       <TestimonialSection />

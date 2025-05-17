@@ -66,17 +66,20 @@ export default function Footer() {
             <div className="flex gap-2">
               <Link
                 href="/"
-                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform">
+                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform"
+                aria-label="Visit our Facebook page">
                 <Facebook fill="white" className="w-4 h-4" />
               </Link>
               <Link
                 href="/"
-                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform">
+                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform"
+                aria-label="Visit our X (Twitter) page">
                 <X className="w-4 h-4" />
               </Link>
               <Link
                 href="/"
-                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform">
+                className="bg-primary rounded-full p-2 hover:scale-110 transition-transform"
+                aria-label="Visit our Instagram page">
                 <Instagram className="w-4 h-4" />
               </Link>
             </div>

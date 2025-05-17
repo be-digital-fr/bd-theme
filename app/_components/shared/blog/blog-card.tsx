@@ -37,7 +37,7 @@ export default function BlogCard({ image, title, link }: BlogCardProps) {
           </Badge>
         </div>
 
-        <h3 id="blog-title" className="pl-2 text-lg font-semibold">
+        <h3 id={`blog-title-${title.toLowerCase().replace(/\s+/g, '-')}`} className="pl-2 text-lg font-semibold">
           {title}
         </h3>
       </article>

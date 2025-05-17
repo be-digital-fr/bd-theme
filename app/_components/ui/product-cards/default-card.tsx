@@ -82,8 +82,8 @@ export default function DefaultCard({ product }: Product) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-primary rounded-full size-5 p-3"
-                aria-hidden="true">
+                className="bg-primary-dark rounded-full size-5 p-3"
+                aria-label="Rating star">
                 <Star fill="white" className="text-white" />
               </Button>
               <span
@@ -92,7 +92,7 @@ export default function DefaultCard({ product }: Product) {
                 {averageRating}
               </span>
               <span
-                className="text-xs text-muted-foreground"
+                className="text-xs text-black/60"
                 aria-label={`${product.reviews?.length || 0} reviews`}>
                 ({product.reviews?.length || 0})
               </span>
@@ -106,7 +106,7 @@ export default function DefaultCard({ product }: Product) {
               <span className="text-sm font-medium">
                 ~{product.preparationTime}
               </span>
-              <span className="text-xs text-muted-foreground"> mins</span>
+              <span className="text-xs text-black/60"> mins</span>
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function DefaultCard({ product }: Product) {
             <Button
               data-testid={`product-price-${product.name}`}
               variant={'ghost'}
-              className="text-primary"
+              className="text-primary-dark"
               aria-label={`Price: ${product.price} euros`}>
               {product.price} €
             </Button>
