@@ -147,7 +147,11 @@ export default function CustomCarousel({
 
           {/* Progress Bar */}
           <div className="flex-1 mx-4">
-            <Progress value={progress} className="h-1.5 bg-card/60" />
+            <Progress
+              value={progress}
+              className="h-1.5 bg-card/60"
+              aria-label={`Progress: ${progress}%`}
+            />
           </div>
 
           {/* Next Button */}

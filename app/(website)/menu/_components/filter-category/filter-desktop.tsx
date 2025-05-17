@@ -106,7 +106,6 @@ const FilterItem = React.memo(
 
         <h3
           aria-label={category.name}
-          aria-level={3}
           title={`category-${category.name}`}
           className={cn('text-sm', isSelected && 'text-accent font-medium')}>
           {category.name}
