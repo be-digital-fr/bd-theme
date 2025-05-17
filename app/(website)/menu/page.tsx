@@ -60,19 +60,43 @@ const fetchCategories = async () => {
   return data as Category[];
 };
 
-const fetchProducts = async () => {
-  const [error, data] = await catchError(
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`).then(
-      async (res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      }
-    )
-  );
+interface ProductResponse {
+  data: any[];
+  pagination: {
+    total: number;
+    totalPages: number;
+    currentPage: number;
+    limit: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+}
 
-  if (error) {
+const fetchProducts = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`, {
+      next: { revalidate: 3600 },
+      cache: 'force-cache'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json() as ProductResponse;
+    
+    return {
+      data: data?.data || [],
+      pagination: {
+        total: data?.pagination?.total || 0,
+        totalPages: data?.pagination?.totalPages || 0,
+        currentPage: data?.pagination?.currentPage || 1,
+        limit: data?.pagination?.limit || 10,
+        hasNextPage: data?.pagination?.hasNextPage || false,
+        hasPreviousPage: data?.pagination?.hasPreviousPage || false,
+      },
+    };
+  } catch (error) {
     console.error('Error fetching products:', error);
     return {
       data: [],
@@ -86,8 +110,6 @@ const fetchProducts = async () => {
       },
     };
   }
-
-  return data as ProductPaginationProps['initialData'];
 };
 
 export default async function MenuPage() {
@@ -96,6 +118,20 @@ export default async function MenuPage() {
     fetchCategories(),
     fetchProducts(),
   ]);
+
+  // Ensure we have default values
+  const categories = categoriesData || [];
+  const products = {
+    data: productsData?.data || [],
+    pagination: {
+      total: productsData?.pagination?.total || 0,
+      totalPages: productsData?.pagination?.totalPages || 0,
+      currentPage: productsData?.pagination?.currentPage || 1,
+      limit: productsData?.pagination?.limit || 10,
+      hasNextPage: productsData?.pagination?.hasNextPage || false,
+      hasPreviousPage: productsData?.pagination?.hasPreviousPage || false,
+    },
+  };
 
   return (
     <main className="mt-28 space-y-10" role="main" aria-label="Menu page">
@@ -117,11 +153,11 @@ export default async function MenuPage() {
       </Container>
 
       <Suspense fallback={<LoadingFilter />}>
-        <FilterCategory categories={categoriesData} />
+        <FilterCategory categories={categories} />
       </Suspense>
 
       <Container>
-        <ProductPagination initialData={productsData} />
+        <ProductPagination initialData={products} />
       </Container>
 
       <Container className="space-y-4 flex flex-col justify-center items-center text-center">
