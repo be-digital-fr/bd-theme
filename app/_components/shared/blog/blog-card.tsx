@@ -27,7 +27,7 @@ export default function BlogCard({ image, title, link }: BlogCardProps) {
             src={image}
             alt={title}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="100% "
           />
 
