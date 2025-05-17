@@ -27,14 +27,14 @@ const FilterDesktop = React.memo(
 
     return (
       <Container className="hidden md:block space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <CustomCarousel
             buttonSize="md:size-6 lg:size-6"
             iconSize="md:size-8/10 lg:size-8/10">
             {categories?.map((category) => (
               <CarouselItem
                 key={category.id}
-                className="basis-1/10 cursor-pointer">
+                className="basis-1/10 cursor-pointer mr-4 lg:mr-0">
                 <FilterItem
                   className="w-10"
                   key={category.id}

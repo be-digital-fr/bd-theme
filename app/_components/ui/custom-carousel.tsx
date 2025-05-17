@@ -38,7 +38,7 @@ export default function CustomCarousel({
   children,
   buttonSize,
   iconSize,
-}: React.PropsWithChildren<{ buttonSize?: string, iconSize?: string }>) {
+}: React.PropsWithChildren<{ buttonSize?: string; iconSize?: string }>) {
   // State for carousel API and navigation controls
   const [api, setApi] = React.useState<any>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -118,58 +118,60 @@ export default function CustomCarousel({
       </Carousel>
 
       {/* Navigation Controls - Only shown when scrolling is possible */}
-
       <MotionDiv
         className="flex justify-end space-x-4 mb-4 z-10 relative px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}>
-        <div
-          className="flex items-center justify-between w-full"
-          role="group"
-          aria-label="Carousel navigation">
-          {/* Previous Button */}
-          <Button
-            onClick={scrollPrev}
-            variant={canScrollPrev ? 'default' : 'ghost'}
-            size="icon"
-            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
-              !canScrollPrev && 'bg-gray-300 cursor-not-allowed'
-            }`}
-            aria-label="Previous slide"
-            tabIndex={0}
-            disabled={!canScrollPrev}>
-            <ChevronLeft
-              className={`text-white size-6 lg:size-8 ${iconSize}`}
-              aria-hidden="true"
-            />
-          </Button>
+        {(canScrollNext || canScrollPrev) && (
+          <div
+            className="flex items-center justify-between w-full"
+            role="group"
+            aria-label="Carousel navigation">
+            {/* Previous Button */}
+            <Button
+              onClick={scrollPrev}
+              variant={canScrollPrev ? 'default' : 'ghost'}
+              size="icon"
+              className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
+                !canScrollPrev && 'bg-gray-300 cursor-not-allowed'
+              }`}
+              aria-label="Previous slide"
+              tabIndex={0}
+              disabled={!canScrollPrev}>
+              <ChevronLeft
+                className={`text-white size-6 lg:size-8 ${iconSize}`}
+                aria-hidden="true"
+              />
+            </Button>
 
           {/* Progress Bar */}
-          <div className="flex-1 mx-4">
-            <Progress
-              value={progress}
-              className="h-1.5 bg-card/60"
-              aria-label={`Progress: ${progress}%`}
-            />
-          </div>
+         
+            <div className="flex-1 mx-4">
+              <Progress
+                value={progress}
+                className="h-1.5 bg-card/60"
+                aria-label={`Progress: ${progress}%`}
+              />
+            </div>
 
-          {/* Next Button */}
-          <Button
-            onClick={scrollNext}
-            variant={canScrollNext ? 'default' : 'ghost'}
-            size="icon"
-            className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
-              !canScrollNext && 'bg-gray-300 cursor-not-allowed'
-            }`}
-            aria-label="Next slide"
-            disabled={!canScrollNext}>
-            <ChevronRight
-              className={`text-white size-6 lg:size-8 ${iconSize}`}
-              aria-hidden="true"
-            />
-          </Button>
-        </div>
+            {/* Next Button */}
+            <Button
+              onClick={scrollNext}
+              variant={canScrollNext ? 'default' : 'ghost'}
+              size="icon"
+              className={`rounded-full size-10 lg:size-14 bg-[#12BD9B] ${buttonSize} ${
+                !canScrollNext && 'bg-gray-300 cursor-not-allowed'
+              }`}
+              aria-label="Next slide"
+              disabled={!canScrollNext}>
+              <ChevronRight
+                className={`text-white size-6 lg:size-8 ${iconSize}`}
+                aria-hidden="true"
+              />
+            </Button>
+          </div>
+        )}
       </MotionDiv>
     </section>
   );
