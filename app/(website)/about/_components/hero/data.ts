@@ -18,18 +18,22 @@ export const partners: PartnerLogo[] = [
   {
     src: '/images/about/uber-eats.png',
     alt: 'Uber Eats - Food delivery partner',
+    href: 'https://www.uber.com/us/en/eats/',
   },
   {
     src: '/images/about/doordash.png',
     alt: 'Doordash - Food delivery partner',
+    href: 'https://www.doordash.com/',
   },
   {
     src: '/images/about/postmates.png',
     alt: 'Postmates - Food delivery partner',
+    href: 'https://www.postmates.com/',
   },
   {
     src: '/images/about/rappi.png',
     alt: 'Rappi - Food delivery partner',
+    href: 'https://www.rappi.com/',
   },
 ];
 

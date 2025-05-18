@@ -22,6 +22,7 @@ import { Metadata } from 'next';
 import { FilterCategory } from './_components/filter-category';
 import { Suspense } from 'react';
 import LoadingFilter from './_components/filter-category/loading-filter';
+import Link from 'next/link';
 
 /**
  * MenuPage Component
@@ -74,17 +75,20 @@ interface ProductResponse {
 
 const fetchProducts = async () => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`, {
-      next: { revalidate: 3600 },
-      cache: 'force-cache'
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product`,
+      {
+        next: { revalidate: 3600 },
+        cache: 'force-cache',
+      }
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
-    const data = await response.json() as ProductResponse;
-    
+
+    const data = (await response.json()) as ProductResponse;
+
     return {
       data: data?.data || [],
       pagination: {
@@ -180,13 +184,20 @@ export default async function MenuPage() {
               <Button
                 variant="outline"
                 aria-label={partner.alt}
+                asChild
                 className="w-full h-24 bg-white">
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={100}
-                  height={100}
-                />
+                <Link
+                  href={partner.href}
+                  target="_blank"
+                  aria-label={partner.alt}
+                  rel="noopener noreferrer">
+                  <Image
+                    src={partner.src}
+                    alt={partner.alt}
+                    width={100}
+                    height={100}
+                  />
+                </Link>
               </Button>
             </li>
           ))}

@@ -31,9 +31,9 @@ export default function FilterMobile({
           key={category.id}
           variant="outline"
           onClick={() => toggleCategory(category.name)}
-          className={`border-primary-dark rounded-full ${
+          className={`border-primary-dark rounded-full hover:bg-primary ${
             selectedCategories.includes(category.name)
-              ? 'bg-primary-dark text-white'
+              ? 'bg-primary-dark text-white hover:bg-primary'
               : 'text-primary-dark'
           }`}>
           {category.name}
