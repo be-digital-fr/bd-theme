@@ -44,7 +44,7 @@ export default function DefaultCard({ product }: Product) {
 
   return (
     <Card
-      className="md:max-w-80 bg-transparent border-none shadow-none"
+      className="max-w-96 w-full mx-auto md:max-w-80 bg-transparent border-none shadow-none"
       role="article"
       aria-label={`Product card for ${product.name}`}>
       <CardContent className="p-0">
