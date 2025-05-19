@@ -175,6 +175,7 @@ export default function AddToCartButton({
               <Image
                 src={product.image}
                 alt={`${product.name} - Product image`}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 fill
                 className="object-cover rounded-lg"
                 priority
