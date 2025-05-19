@@ -5,3 +5,8 @@ export type ProductType = Prisma.ProductGetPayload<{
     reviews: true;
   };
 }>;
+
+export type IProduct = ProductType & {
+  averageRating: number;
+  totalReviews: number;
+};

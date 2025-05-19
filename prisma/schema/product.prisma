@@ -1,6 +1,8 @@
 model Category {
   id          String    @id @default(cuid())
   name        String
+  slug        String
+  shortDescription String
   description String?
   image       String?
   products    Product[]
@@ -11,7 +13,9 @@ model Category {
 model Product {
   id              String      @id @default(cuid())
   name            String
+  slug            String
   description     String
+  shortDescription String
   price           Float
   image           String
   calories        Int?

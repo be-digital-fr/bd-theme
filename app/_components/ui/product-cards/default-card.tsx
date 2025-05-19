@@ -7,6 +7,8 @@ import { Card, CardContent, CardFooter } from '../card';
 import { Button } from '../button';
 import FavoriteButton from './favorite-icon';
 import AddToCartButton from './add-to-cart-button';
+import Link from 'next/link';
+import slugify from 'slugify';
 
 // Validation schema for product with included reviews
 const ProductSchema = z.object({
@@ -44,95 +46,98 @@ export default function DefaultCard({ product }: Product) {
 
   return (
     <Card
-      className="max-w-96 w-full mx-auto md:max-w-80 bg-transparent border-none shadow-none"
+      className="max-w-96 w-full mx-auto md:max-w-80 bg-transparent border-none shadow-none relative"
       role="article"
       aria-label={`Product card for ${product.name}`}>
-      <CardContent className="p-0">
-        {/* Main container with image and information */}
-        <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
-          {/* Product image */}
-          <div className="relative w-full h-56">
-            <Image
-              src={product.image}
-              alt={`Image of ${product.name}`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
-              className="object-contain"
-              priority
-            />
+      {/* Favorite button in top right corner - moved outside Link */}
+      <FavoriteButton
+        productId={product.id}
+        className="absolute top-8 right-2 z-10"
+        aria-label={`Add ${product.name} to favorites`}
+      />
+      <Link href={`/products/${slugify(product.name).toLowerCase()}`}>
+        <CardContent className="p-0">
+          {/* Main container with image and information */}
+          <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
+            {/* Product image */}
+            <div className="relative w-full h-56">
+              <Image
+                src={product.image}
+                alt={`Image of ${product.name}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {/* Information bar at bottom of image */}
+            <div
+              className="w-full px-4 flex items-center justify-between absolute bottom-4 left-1/2 -translate-x-1/2"
+              role="group"
+              aria-label="Product information">
+              {/* Display average rating and number of reviews */}
+              <div
+                className="flex items-center gap-1"
+                role="group"
+                aria-label="Rating information">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="bg-primary-dark rounded-full size-5 p-3"
+                  aria-label="Rating star">
+                  <Star fill="white" className="text-white" />
+                </Button>
+                <span
+                  className="text-sm font-medium"
+                  aria-label={`Rating: ${averageRating} out of 5`}>
+                  {averageRating}
+                </span>
+                <span
+                  className="text-xs text-black/60"
+                  aria-label={`${product.reviews?.length || 0} reviews`}>
+                  ({product.reviews?.length || 0})
+                </span>
+              </div>
+
+              {/* Preparation time */}
+              <div
+                className="flex items-center gap-1"
+                role="group"
+                aria-label="Preparation time">
+                <span className="text-sm font-medium">
+                  ~{product.preparationTime}
+                </span>
+                <span className="text-xs text-black/60"> mins</span>
+              </div>
+            </div>
           </div>
 
-          {/* Favorite button in top right corner */}
-          <FavoriteButton
-            productId={product.id}
-            className="absolute top-2 right-2"
-            aria-label={`Add ${product.name} to favorites`}
-          />
+          {/* Card footer with name and actions */}
+          <CardFooter className="flex flex-col gap-2 items-start p-0 mt-4">
+            <h2
+              className="text-md font-medium"
+              id={`product-name-${product.id}`}>
+              {product.name}
+            </h2>
 
-          {/* Information bar at bottom of image */}
-          <div
-            className="w-full px-4 flex items-center justify-between absolute bottom-4 left-1/2 -translate-x-1/2"
-            role="group"
-            aria-label="Product information">
-            {/* Display average rating and number of reviews */}
+            {/* Action buttons and price display */}
             <div
-              className="flex items-center gap-1"
+              className="w-full flex items-center justify-between gap-1"
               role="group"
-              aria-label="Rating information">
+              aria-label="Product actions">
+              <AddToCartButton product={product} />
               <Button
-                variant="ghost"
-                size="icon"
-                className="bg-primary-dark rounded-full size-5 p-3"
-                aria-label="Rating star">
-                <Star fill="white" className="text-white" />
+                data-testid={`product-price-${product.name}`}
+                variant={'ghost'}
+                className="text-primary-dark"
+                aria-label={`Price: ${product.price} euros`}>
+                {product.price} €
               </Button>
-              <span
-                className="text-sm font-medium"
-                aria-label={`Rating: ${averageRating} out of 5`}>
-                {averageRating}
-              </span>
-              <span
-                className="text-xs text-black/60"
-                aria-label={`${product.reviews?.length || 0} reviews`}>
-                ({product.reviews?.length || 0})
-              </span>
             </div>
-
-            {/* Preparation time */}
-            <div
-              className="flex items-center gap-1"
-              role="group"
-              aria-label="Preparation time">
-              <span className="text-sm font-medium">
-                ~{product.preparationTime}
-              </span>
-              <span className="text-xs text-black/60"> mins</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Card footer with name and actions */}
-        <CardFooter className="flex flex-col gap-2 items-start p-0 mt-4">
-          <h2 className="text-md font-medium" id={`product-name-${product.id}`}>
-            {product.name}
-          </h2>
-
-          {/* Action buttons and price display */}
-          <div
-            className="w-full flex items-center justify-between gap-1"
-            role="group"
-            aria-label="Product actions">
-            <AddToCartButton product={product} />
-            <Button
-              data-testid={`product-price-${product.name}`}
-              variant={'ghost'}
-              className="text-primary-dark"
-              aria-label={`Price: ${product.price} euros`}>
-              {product.price} €
-            </Button>
-          </div>
-        </CardFooter>
-      </CardContent>
+          </CardFooter>
+        </CardContent>
+      </Link>
     </Card>
   );
 }
