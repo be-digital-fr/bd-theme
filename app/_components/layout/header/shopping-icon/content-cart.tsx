@@ -1,3 +1,4 @@
+import { CartEmpty, DisappearContainer } from '@/app/_components/animation';
 import { Button, Separator, SheetFooter } from '@/app/_components/ui';
 import ProductCart from '@/app/_components/ui/product-cards/product-cart';
 import { useCartStore } from '@/app/store/cart-store';
@@ -27,18 +28,27 @@ TODO:
  */
 export default function ContentCart({ products }: { products: IProduct[] }) {
   const totalPrice = useCartStore((state) => state.totalPrice());
+  const totalItems = useCartStore((state) => state.totalItems());
+
+
+  if(totalItems === 0) {
+    return <CartEmpty />
+  }
+
 
   return (
     <main
       className="flex flex-col gap-4 h-full"
       aria-label="Shopping cart content">
-      <ul className="px-4" aria-label="Cart items">
-        {products.map((product) => (
-          <li key={product.id}>
-            <ProductCart product={product} />
-          </li>
-        ))}
-      </ul>
+      <DisappearContainer>
+        <ul className="px-4" aria-label="Cart items">
+          {products.map((product) => (
+            <li key={product.id}>
+              <ProductCart product={product} />
+            </li>
+          ))}
+        </ul>
+      </DisappearContainer>
 
       <aside className="mt-auto">
         <Separator className="my-4 data-[orientation=horizontal]:h-0.5 bg-card" />

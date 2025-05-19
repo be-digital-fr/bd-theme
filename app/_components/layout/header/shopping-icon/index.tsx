@@ -50,7 +50,7 @@ export default function ShoppingIcon() {
           </div>
         </div>
       </SheetTrigger>
-      {isMobile ? <CartMobile /> : <CartDesktop />}
+      {isMobile  ? <CartMobile /> : <CartDesktop />}
     </Sheet>
   );
 }

@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from 'framer-motion';
 
 export const fadeInUp: Variants = {
   initial: {
@@ -10,7 +10,7 @@ export const fadeInUp: Variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -23,7 +23,7 @@ export const fadeIn: Variants = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -38,7 +38,7 @@ export const staggerChildren: Variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -50,7 +50,7 @@ export const staggerContainer: Variants = {
       delayChildren: 0.3,
     },
   },
-}; 
+};
 
 export const pullupVariant: Variants = {
   initial: { y: 10, opacity: 0 },
@@ -61,4 +61,20 @@ export const pullupVariant: Variants = {
       delay: i * 0.05,
     },
   }),
+};
+
+export const disappearVariant: Variants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    x: -100,
+  },
+  
 };

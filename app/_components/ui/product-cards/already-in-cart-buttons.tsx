@@ -5,6 +5,7 @@ import { Trash2 } from 'lucide-react';
 import { useCartStore } from '@/app/store/cart-store';
 import { IProduct } from '@/app/types/Product.type';
 import { cn } from '@/app/_lib';
+import { DisappearButton } from '../../animation';
 
 /**
  * AlreadyInCartButtons Component
@@ -46,13 +47,16 @@ export default function AlreadyInCartButtons({
         max={10}
         aria-label={`Quantity of ${product.name}`}
       />
-      <Button
-        onClick={() => removeItem(product.id)}
-        size="icon"
-        variant="destructive"
-        aria-label={`Remove ${product.name} from cart`}>
-        <Trash2 className="w-5 h-5" aria-hidden="true" />
-      </Button>
+      <DisappearButton>
+        <Button
+          onClick={() => removeItem(product.id)}
+          size="icon"
+          variant="destructive"
+          aria-label={`Remove ${product.name} from cart`}
+          className="hover:scale-110 active:scale-90 transition-transform">
+          <Trash2 className="w-5 h-5" aria-hidden="true" />
+        </Button>
+      </DisappearButton>
     </div>
   );
 }

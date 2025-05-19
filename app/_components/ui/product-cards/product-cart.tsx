@@ -8,6 +8,7 @@ import { formatPrice } from '@/utils';
 import AlreadyInCartButtons from './already-in-cart-buttons';
 import Link from 'next/link';
 import slugify from 'slugify';
+import { DisappearContent } from '../../animation';
 
 /**
  * ProductCart Component
@@ -69,13 +70,13 @@ export default function ProductCart({ product }: ProductCartProps) {
   };
 
   return (
-    <article
+    <DisappearContent
+      as="article"
       className="flex gap-4 p-4 border-b last:border-b-0 border-card"
-      role="article"
       aria-label={`Product: ${product.name}`}>
       {/* Image Section */}
       <div
-        className="bg-card h-min w-min rounded-full"
+        className="bg-card h-min w-min rounded-full overflow-hidden"
         role="img"
         aria-label={`Image of ${product.name}`}>
         <div className="relative w-24 h-24 flex-shrink-0">
@@ -160,6 +161,6 @@ export default function ProductCart({ product }: ProductCartProps) {
           <AlreadyInCartButtons product={product} />
         </div>
       </div>
-    </article>
+    </DisappearContent>
   );
 }
