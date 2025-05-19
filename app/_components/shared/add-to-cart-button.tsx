@@ -1,7 +1,10 @@
 'use client';
+
+// React and Next.js imports
 import React, { PropsWithChildren } from 'react';
 import Image from 'next/image';
 
+// UI Components imports
 import {
   Dialog,
   DialogContent,
@@ -17,15 +20,14 @@ import {
   Counter,
   Textarea,
 } from '@/app/_components/ui';
+
+// Types and Store imports
 import { IProduct } from '@/app/types/Product.type';
 import { useCartStore } from '@/app/store/cart-store';
 import AlreadyInCartButtons from '../ui/product-cards/already-in-cart-buttons';
 
 /**
- * Interface for managing extra ingredient quantities
- * @interface ExtraQuantity
- * @property {string} id - The unique identifier of the extra ingredient
- * @property {number} quantity - The quantity of the extra ingredient
+ * Interface for tracking additional ingredients quantity
  */
 interface ExtraQuantity {
   id: string;
@@ -34,10 +36,15 @@ interface ExtraQuantity {
 
 /**
  * AddToCartButton Component
- * 
- * A dialog component that allows users to customize and add products to their cart.
- * Includes features for removing ingredients, adding extras, and special instructions.
- * 
+ *
+ * A dialog component that allows users to customize their product before adding it to cart.
+ * Features:
+ * - Product image display
+ * - Ingredient removal options
+ * - Additional ingredients selection
+ * - Special instructions input
+ * - Price calculation
+ *
  * @param {Object} props
  * @param {IProduct} props.product - The product to be added to cart
  * @param {React.ReactNode} props.children - The trigger element for the dialog
@@ -46,25 +53,30 @@ export default function AddToCartButton({
   product,
   children,
 }: PropsWithChildren<{ product: IProduct }>) {
+  // Cart store integration
   const addItem = useCartStore((state) => state.addItem);
-  const [isLoading, setIsLoading] = React.useState(true);
   const alreadyInCart = useCartStore((state) =>
     state.items.some((item) => item.id === product.id)
   );
-  const [isOpen, setIsOpen] = React.useState(false);
 
-  // State management for removed ingredients, extra quantities, and special instructions
-  const [removedIngredients, setRemovedIngredients] = React.useState<string[]>([]);
-  const [additionalIngredients, setAdditionalIngredients] = React.useState<ExtraQuantity[]>([]);
+  // State management
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [removedIngredients, setRemovedIngredients] = React.useState<string[]>(
+    []
+  );
+  const [additionalIngredients, setAdditionalIngredients] = React.useState<
+    ExtraQuantity[]
+  >([]);
   const [comment, setComment] = React.useState('');
 
+  // Initialize loading state
   React.useEffect(() => {
     setIsLoading(false);
   }, []);
 
   /**
-   * Calculates the total price including base price and additional ingredients
-   * @returns {number} The total price
+   * Calculate total price including base price and additional ingredients
    */
   const totalPrice = React.useMemo(() => {
     const additionalPrice = additionalIngredients.reduce(
@@ -78,9 +90,7 @@ export default function AddToCartButton({
   }, [additionalIngredients, product.price, product.extras]);
 
   /**
-   * Handles quantity changes for extra ingredients
-   * @param {string} id - The ID of the extra ingredient
-   * @param {number} newQuantity - The new quantity value
+   * Handle quantity changes for additional ingredients
    */
   const handleQuantityChange = (id: string, newQuantity: number) => {
     setAdditionalIngredients((prev) => {
@@ -95,8 +105,7 @@ export default function AddToCartButton({
   };
 
   /**
-   * Toggles the removal of an ingredient
-   * @param {string} ingredient - The ingredient to toggle
+   * Toggle ingredient removal
    */
   const handleRemoveIngredient = (ingredient: string) => {
     removedIngredients.includes(ingredient)
@@ -105,10 +114,9 @@ export default function AddToCartButton({
   };
 
   /**
-   * Handles adding the customized product to cart
+   * Handle adding product to cart with customizations
    */
   const handleAddToCart = () => {
-    // Transform extraQuantities to match the CartItem interface
     const extras = additionalIngredients
       .filter(({ quantity }) => quantity > 0)
       .map(({ id, quantity }) => {
@@ -123,7 +131,6 @@ export default function AddToCartButton({
       })
       .filter((extra): extra is NonNullable<typeof extra> => extra !== null);
 
-    // Add item to cart with all customizations
     addItem({
       ...product,
       quantity: 1,
@@ -132,7 +139,7 @@ export default function AddToCartButton({
       comment,
     });
 
-    // Reset form and close dialog
+    // Reset form state
     setRemovedIngredients([]);
     setAdditionalIngredients([]);
     setComment('');
@@ -143,7 +150,9 @@ export default function AddToCartButton({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {isLoading ? (
-          <div className="opacity-0" aria-hidden="true">{children}</div>
+          <div className="opacity-0" aria-hidden="true">
+            {children}
+          </div>
         ) : alreadyInCart ? (
           <AlreadyInCartButtons product={product} />
         ) : (
@@ -167,8 +176,8 @@ export default function AddToCartButton({
 
         <main className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-0">
           {/* Product Image Section */}
-          <div 
-            className='bg-card h-min w-full p-4 rounded-full overflow-hidden flex items-center justify-center'
+          <div
+            className="bg-card h-min w-full p-4 rounded-full overflow-hidden flex items-center justify-center"
             role="img"
             aria-label={`${product.name} product image`}>
             <figure className="relative aspect-square w-full h-full">
@@ -186,7 +195,9 @@ export default function AddToCartButton({
           {/* Product Details Section */}
           <section className="space-y-4" aria-labelledby="product-details">
             <header className="space-y-3">
-              <h2 id="product-details" className="text-xl font-semibold text-primary">
+              <h2
+                id="product-details"
+                className="text-xl font-semibold text-primary">
                 {product.name}
               </h2>
               <p className="text-sm text-muted-foreground">
@@ -202,71 +213,79 @@ export default function AddToCartButton({
             <Separator />
 
             {/* Removable Ingredients Section */}
-            <section>
-              <h3 className="font-medium mb-2" id="removable-ingredients">
-                Remove Ingredients
-              </h3>
-              <div
-                className="space-y-2"
-                role="group"
-                aria-labelledby="removable-ingredients">
-                {product.ingredients?.map((ingredient) => (
-                  <label
-                    key={ingredient}
-                    className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={removedIngredients.includes(ingredient)}
-                      onCheckedChange={() => handleRemoveIngredient(ingredient)}
-                      aria-label={`Remove ${ingredient}`}
-                    />
-                    <span className="text-sm">{ingredient}</span>
-                  </label>
-                ))}
-              </div>
-            </section>
-
-            <Separator />
+            {product.ingredients && product.ingredients.length > 0 && (
+              <>
+                <section>
+                  <h3 className="font-medium mb-2" id="removable-ingredients">
+                    Remove Ingredients
+                  </h3>
+                  <div
+                    className="space-y-2"
+                    role="group"
+                    aria-labelledby="removable-ingredients">
+                    {product.ingredients.map((ingredient) => (
+                      <label
+                        key={ingredient}
+                        className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={removedIngredients.includes(ingredient)}
+                          onCheckedChange={() =>
+                            handleRemoveIngredient(ingredient)
+                          }
+                          aria-label={`Remove ${ingredient}`}
+                        />
+                        <span className="text-sm">{ingredient}</span>
+                      </label>
+                    ))}
+                  </div>
+                </section>
+                <Separator />
+              </>
+            )}
 
             {/* Additional Ingredients Section */}
-            <section>
-              <h3 className="font-medium mb-2" id="additional-ingredients">
-                Additional Ingredients
-              </h3>
-              <div
-                className="space-y-4"
-                role="group"
-                aria-labelledby="additional-ingredients">
-                {product.extras?.map((ingredient) => (
+            {product.extras && product.extras.length > 0 && (
+              <>
+                <section>
+                  <h3 className="font-medium mb-2" id="additional-ingredients">
+                    Additional Ingredients
+                  </h3>
                   <div
-                    key={ingredient.id}
-                    className="flex items-center justify-between">
-                    <p className="text-sm">
-                      {ingredient.name}{' '}
-                      <span
-                        className="text-sm font-semibold text-primary-dark"
-                        aria-label={`Additional cost: ${ingredient.price} euros`}>
-                        (+{ingredient.price.toFixed(2)}€)
-                      </span>
-                    </p>
-                    <Counter
-                      value={
-                        additionalIngredients.find(
-                          (eq) => eq.id === ingredient.id
-                        )?.quantity || 0
-                      }
-                      onValueChange={(value) =>
-                        handleQuantityChange(ingredient.id, value)
-                      }
-                      min={0}
-                      max={10}
-                      aria-label={`Quantity of ${ingredient.name}`}
-                    />
+                    className="space-y-4"
+                    role="group"
+                    aria-labelledby="additional-ingredients">
+                    {product.extras.map((ingredient) => (
+                      <div
+                        key={ingredient.id}
+                        className="flex items-center justify-between">
+                        <p className="text-sm">
+                          {ingredient.name}{' '}
+                          <span
+                            className="text-sm font-semibold text-primary-dark"
+                            aria-label={`Additional cost: ${ingredient.price} euros`}>
+                            (+{ingredient.price.toFixed(2)}€)
+                          </span>
+                        </p>
+                        <Counter
+                          value={
+                            additionalIngredients.find(
+                              (eq) => eq.id === ingredient.id
+                            )?.quantity || 0
+                          }
+                          onValueChange={(value) =>
+                            handleQuantityChange(ingredient.id, value)
+                          }
+                          min={0}
+                          max={10}
+                          aria-label={`Quantity of ${ingredient.name}`}
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </section>
-
-            <Separator />
+                </section>
+                <Separator />
+              </>
+            )}
 
             {/* Special Instructions Section */}
             <section>
@@ -282,7 +301,6 @@ export default function AddToCartButton({
               />
             </section>
 
-            {/* Add to Order Button */}
             <footer>
               <Button
                 size="lg"

@@ -6,6 +6,8 @@ import { useCartStore } from '@/app/store/cart-store';
 import { formatPrice } from '@/utils';
 
 import AlreadyInCartButtons from './already-in-cart-buttons';
+import Link from 'next/link';
+import slugify from 'slugify';
 
 /**
  * ProductCart Component
@@ -92,7 +94,9 @@ export default function ProductCart({ product }: ProductCartProps) {
       <div className="flex-1 space-y-4 md:space-y-6">
         <div className="flex">
           <div>
-            <h3 className="font-bold">{product.name}</h3>
+            <Link href={`/products/${slugify(product.name)}`} className="font-bold">
+              {product.name}
+            </Link>
             <p
               className="text-sm font-bold"
               aria-label={`Total price: ${formatPrice(totalPrice)}`}>
@@ -102,9 +106,9 @@ export default function ProductCart({ product }: ProductCartProps) {
         </div>
 
         {/* Extras Section */}
-        <section className="space-y-2" aria-label="Selected extras">
-          <h3 className="font-medium">Selected Extras</h3>
-          {product.extras && product.extras.length > 0 && (
+        {product.extras && product.extras.length > 0 && (
+          <section className="space-y-2" aria-label="Selected extras">
+            <h3 className="font-medium">Selected Extras</h3>
             <div
               className="mt-2 space-y-0.5"
               role="list"
@@ -145,8 +149,8 @@ export default function ProductCart({ product }: ProductCartProps) {
                 );
               })}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
         {/* Controls Section */}
         <div
