@@ -768,7 +768,15 @@ export default async function productSeed() {
     // Ajouter des extras spécifiques aux soupes
     await prisma.extra.create({
       data: {
-        name: 'Croutons supplémentaires',
+        name: 'Croutons',
+        price: 1.5,
+        productId: createdProduct.id,
+      },
+    });
+
+    await prisma.extra.create({
+      data: {
+        name: 'Lentilles',
         price: 1.5,
         productId: createdProduct.id,
       },

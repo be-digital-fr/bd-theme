@@ -7,6 +7,7 @@ import { z } from '@zod/mini';
 import { Container } from '@/app/_components/shared';
 import CustomCarousel from '@/app/_components/ui/custom-carousel';
 import { usePickedForYou } from './picked-for-you-desktiop';
+import { CarouselItem } from '@/app/_components/ui/carousel';
 
 /**
  * Schema definition for PickedForYou component props
@@ -84,12 +85,12 @@ export function PickedForYouMobile({
         iconSize="size-4"
         aria-label="Recommended products carousel">
         {products.map((product: IProduct) => (
-          <div
+          <CarouselItem
             key={product.id}
             className="pl-4"
             aria-label={`Product ${product.name}`}>
             <ProductCard product={product} />
-          </div>
+          </CarouselItem>
         ))}
       </CustomCarousel>
     </Container>

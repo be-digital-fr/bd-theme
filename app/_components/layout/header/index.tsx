@@ -14,7 +14,7 @@ import { MobileNavigation } from './mobile-navigation';
 import { NavigationLinksSchema } from './types';
 import { AuthTrigger } from '@/infrastructure/better-auth/interface';
 import { SearchTrigger } from '@/features/search-product/components';
-import ShoppingCart from './shopping-cart';
+import ShoppingIcon from './shopping-icon';
 
 /**
  * Navigation links configuration with SEO-friendly labels and descriptions
@@ -90,7 +90,7 @@ export default function Header() {
                 <AuthTrigger />
               </div>
               {/* Shopping Cart */}
-              <ShoppingCart />
+              <ShoppingIcon />
               {/* Mobile Navigation Menu */}
               <div className="md:hidden">
                 <MobileNavigation links={navigationLinks} />

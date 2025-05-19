@@ -7,6 +7,8 @@ export type ProductType = Prisma.ProductGetPayload<{
   };
 }>;
 
+export type IAdditionalIngredient = Prisma.ExtraGetPayload<{}>;
+
 export type IProduct = ProductType & {
   averageRating: number;
   totalReviews: number;
@@ -15,5 +17,6 @@ export type IProduct = ProductType & {
     id: string;
     name: string;
     price: number;
+    quantity: number;
   }[];
 };

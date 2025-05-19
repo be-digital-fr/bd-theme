@@ -43,17 +43,18 @@ export default function DefaultCard({ product }: Product) {
       className="max-w-96 w-full mx-auto md:max-w-80 bg-transparent border-none shadow-none relative"
       role="article"
       aria-label={`Product card for ${product.name}`}>
-      {/* Favorite button in top right corner - moved outside Link */}
+      {/* Favorite button in top right corner */}
       <FavoriteButton
         productId={product.id}
         className="absolute top-8 right-2 z-10"
         aria-label={`Add ${product.name} to favorites`}
       />
-      <Link href={`/products/${slugify(product.name).toLowerCase()}`}>
-        <CardContent className="p-0">
-          {/* Main container with image and information */}
-          <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
-            {/* Product image */}
+      
+      <CardContent className="p-0">
+        {/* Main container with image and information */}
+        <div className="relative bg-card rounded-2xl w-full py-4 pb-10 px-4">
+          {/* Product image with link */}
+          <Link href={`/products/${slugify(product.name).toLowerCase()}`} className="block">
             <div className="relative w-full h-56">
               <Image
                 src={product.image}
@@ -105,35 +106,36 @@ export default function DefaultCard({ product }: Product) {
                 <span className="text-xs text-black/60"> mins</span>
               </div>
             </div>
-          </div>
+          </Link>
+        </div>
 
-          {/* Card footer with name and actions */}
-          <CardFooter className="flex flex-col gap-2 items-start p-0 mt-4">
+        {/* Card footer with name and actions */}
+        <CardFooter className="flex flex-col gap-2 items-start p-0 mt-4">
+          <Link href={`/products/${slugify(product.name).toLowerCase()}`}>
             <h2
               className="text-md font-medium"
               id={`product-name-${product.id}`}>
               {product.name}
             </h2>
+          </Link>
 
-            {/* Action buttons and price display */}
-            <div
-              className="w-full flex items-center justify-between gap-1"
-              role="group"
-              aria-label="Product actions">
-              <AddToCartButton product={product}>
-                <Button size="lg">Add to Cart</Button>
-              </AddToCartButton>
-              <Button
-                data-testid={`product-price-${product.name}`}
-                variant={'ghost'}
-                className="text-primary-dark"
-                aria-label={`Price: ${product.price} euros`}>
-                {product.price} €
-              </Button>
-            </div>
-          </CardFooter>
-        </CardContent>
-      </Link>
+          {/* Action buttons and price display */}
+          <div
+            className="w-full flex items-center justify-between gap-1"
+            role="group"
+            aria-label="Product actions">
+            <AddToCartButton product={product}>
+              <Button>Add to Cart</Button>
+            </AddToCartButton>
+            <p
+              data-testid={`product-price-${product.name}`}
+              className="text-primary-dark"
+              aria-label={`Price: ${product.price} euros`}>
+              {product.price} €
+            </p>
+          </div>
+        </CardFooter>
+      </CardContent>
     </Card>
   );
 }

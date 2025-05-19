@@ -1,23 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { IProduct } from '../types/Product.type';
-import { z } from '@zod/mini';
+
 /**
  * CartItem Interface
  * Defines the structure of an item in the shopping cart
  */
-const ExtraSchema = z.object({
-  name: z.string(),
-  price: z.number(),
-  quantity: z.number(),
-});
-
-type Extra = z.infer<typeof ExtraSchema>;
-
 export interface CartItem extends IProduct {
   quantity: number;
-  removedIngredients: string[];
-  extraQuantities: Extra[];
   comment: string;
 }
 
@@ -29,7 +19,7 @@ export interface CartStore {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  updateQuantity: (id: string, quantity: number, additionalIngredients?: IProduct['additionalIngredients']) => void;
   clearCart: () => void;
   totalItems: () => number;
   totalPrice: () => number;
@@ -88,11 +78,12 @@ export const useCartStore = create<CartStore>()(
        * Updates the quantity of an item in the cart
        * @param id - The ID of the item to update
        * @param quantity - The new quantity
+       * @param additionalIngredients - Optional array of additional ingredients
        */
-      updateQuantity: (id, quantity) => {
+      updateQuantity: (id, quantity, additionalIngredients) => {
         set((state) => ({
           items: state.items.map((item) =>
-            item.id === id ? { ...item, quantity } : item
+            item.id === id ? { ...item, quantity, additionalIngredients: additionalIngredients || item.additionalIngredients } : item
           ),
         }));
       },
@@ -118,7 +109,14 @@ export const useCartStore = create<CartStore>()(
        */
       totalPrice: () => {
         return get().items.reduce(
-          (total, item) => total + item.price * item.quantity,
+          (total, item) => {
+            const basePrice = item.price * item.quantity;
+            const extrasPrice = (item.additionalIngredients || []).reduce(
+              (acc, extra) => acc + extra.price * extra.quantity,
+              0
+            );
+            return total + basePrice + extrasPrice;
+          },
           0
         );
       },
