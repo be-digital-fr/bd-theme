@@ -14,7 +14,7 @@ import {
 import { DefaultCard } from '@/app/_components/ui';
 import { Prisma } from '@/lib';
 import { useFilterStore } from '../../../../store/filter-store';
-import { ProductType } from '@/app/types/Product.type';
+import { IProduct } from '@/app/types/Product.type';
 
 /**
  * Type definition for a Product with its relations
@@ -152,7 +152,7 @@ export function ProductPagination({ initialData }: ProductPaginationProps) {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {data.data?.map((product: ProductType) => (
+            {data.data?.map((product: IProduct) => (
               <DefaultCard key={product.id} product={product} />
             ))}
           </div>

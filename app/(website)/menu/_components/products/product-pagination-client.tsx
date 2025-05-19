@@ -12,7 +12,7 @@ import {
   PaginationPrevious,
 } from '@/app/_components/ui';
 import { DefaultCard } from '@/app/_components/ui';
-import { ProductType } from '@/app/types/Product.type';
+import { IProduct, ProductType } from '@/app/types/Product.type';
 
 
 
@@ -96,7 +96,7 @@ export function ProductPaginationClient({
       <div
         ref={productsContainerRef}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {data.data.map((product: ProductType) => (
+        {data.data.map((product: IProduct) => (
           <DefaultCard key={product.id} product={product} />
         ))}
       </div>

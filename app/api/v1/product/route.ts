@@ -5,14 +5,14 @@ import { NextResponse } from 'next/server';
 const decodeSlug = (slug: string) => {
   return slug
     .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
 
 /**
  * GET /api/v1/product
  * Récupère les produits avec pagination et filtrage par catégorie
- * 
+ *
  * @param {Request} request - La requête contenant les paramètres de pagination et de filtrage
  * @returns {Promise<NextResponse>} Liste paginée des produits avec leurs catégories, variants et extras
  */
@@ -47,10 +47,10 @@ export async function GET(request: Request) {
         extras: true,
       },
       orderBy: {
-        createdAt: 'desc'
+        createdAt: 'desc',
       },
       skip,
-      take: limit
+      take: limit,
     });
 
     // Calcul des métadonnées de pagination
@@ -66,8 +66,8 @@ export async function GET(request: Request) {
         currentPage: page,
         limit,
         hasNextPage,
-        hasPreviousPage
-      }
+        hasPreviousPage,
+      },
     });
   } catch (error) {
     console.error('Erreur lors de la récupération des produits:', error);
@@ -81,14 +81,14 @@ export async function GET(request: Request) {
 /**
  * POST /api/v1/product
  * Crée un nouveau produit
- * 
+ *
  * @param {Request} request - La requête contenant les données du produit
  * @returns {Promise<NextResponse>} Le produit créé
  */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Validation des champs requis
     if (!body.name || !body.description || !body.price || !body.categoryId) {
       return NextResponse.json(
@@ -106,14 +106,23 @@ export async function POST(request: Request) {
         image: body.image || '',
         calories: body.calories ? parseInt(body.calories) : null,
         isAvailable: body.isAvailable ?? true,
-        preparationTime: body.preparationTime ? parseInt(body.preparationTime) : null,
+        preparationTime: body.preparationTime
+          ? parseInt(body.preparationTime)
+          : null,
         categoryId: body.categoryId,
+        slug: body.slug,
+        shortDescription: body.shortDescription,
+        category: {
+          connect: {
+            id: body.categoryId,
+          },
+        },
       },
       include: {
         category: true,
         variants: true,
         extras: true,
-      }
+      },
     });
 
     return NextResponse.json(product, { status: 201 });

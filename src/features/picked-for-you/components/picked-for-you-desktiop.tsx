@@ -82,9 +82,9 @@ export function PickedForYouDesktop({ currentProductId, limit = 4 }: PickedForYo
   if (isLoading) {
     return (
       <Container className="space-y-4">
-        <h2 className="text-2xl font-bold">Picked for you</h2>
+        <h3 className="text-2xl font-bold">Picked for you</h3>
         <div 
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
           role="status"
           aria-label="Loading recommended products"
         >
@@ -102,18 +102,17 @@ export function PickedForYouDesktop({ currentProductId, limit = 4 }: PickedForYo
 
   return (
     <Container className="space-y-4">
-      <h2 className="text-2xl font-bold">Picked for you</h2>
-      <div 
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
-        role="list"
+      <h3 className="text-2xl font-bold">Picked for you</h3>
+      <ul 
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
         aria-label="Recommended products"
       >
         {products.map((product: IProduct) => (
-          <div key={product.id} role="listitem">
+          <li key={product.id}>
             <ProductCard product={product} />
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </Container>
   );
 }

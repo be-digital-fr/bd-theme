@@ -1,16 +1,14 @@
 import { prisma } from '@/lib';
-import { catchError } from '@/utils';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { name: string } }
-) {
+export async function GET(request: NextRequest, context: any) {
+  const { name } = context.params;
+
   try {
     const product = await prisma.product.findFirst({
       where: {
         name: {
-          equals: params.name,
+          equals: name,
           mode: 'insensitive',
         },
       },
@@ -31,10 +29,7 @@ export async function GET(
     });
 
     if (!product) {
-      return NextResponse.json(
-        { error: 'Product not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
     const averageRating = product.reviews.length

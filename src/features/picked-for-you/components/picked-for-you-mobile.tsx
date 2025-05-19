@@ -34,12 +34,19 @@ ProductCard.displayName = 'ProductCard';
 /**
  * Mobile version of the PickedForYou component
  * Displays recommended products in a carousel layout optimized for mobile devices
- * 
+ *
  * @param {PickedForYouProps} props - Component props
  * @returns {JSX.Element} Rendered component
  */
-export function PickedForYouMobile({ currentProductId, limit = 4 }: PickedForYouProps) {
-  const { data: products, isLoading, error } = usePickedForYou(currentProductId, limit);
+export function PickedForYouMobile({
+  currentProductId,
+  limit = 4,
+}: PickedForYouProps) {
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = usePickedForYou(currentProductId, limit);
 
   if (error) {
     return (
@@ -53,11 +60,10 @@ export function PickedForYouMobile({ currentProductId, limit = 4 }: PickedForYou
     return (
       <Container className="space-y-4">
         <h2 className="text-2xl font-bold">Picked for you</h2>
-        <div 
+        <div
           className="grid grid-cols-1 gap-4"
           role="status"
-          aria-label="Loading recommended products"
-        >
+          aria-label="Loading recommended products">
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton key={index} className="w-full h-48" />
           ))}
@@ -73,17 +79,15 @@ export function PickedForYouMobile({ currentProductId, limit = 4 }: PickedForYou
   return (
     <Container className="space-y-4">
       <h2 className="text-2xl font-bold">Picked for you</h2>
-      <CustomCarousel 
-        buttonSize="size-8" 
+      <CustomCarousel
+        buttonSize="size-8"
         iconSize="size-4"
-        aria-label="Recommended products carousel"
-      >
+        aria-label="Recommended products carousel">
         {products.map((product: IProduct) => (
-          <div 
-            key={product.id} 
+          <div
+            key={product.id}
             className="pl-4"
-            role="listitem"
-          >
+            aria-label={`Product ${product.name}`}>
             <ProductCard product={product} />
           </div>
         ))}

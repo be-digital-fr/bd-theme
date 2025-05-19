@@ -7,6 +7,7 @@ import { CarouselItem } from "@/app/_components/ui/carousel";
 import { CustomCarousel } from "@/app/_components/ui";
 import { DefaultCard } from "@/app/_components/ui";
 import { Prisma } from "@/lib";
+import { IProduct } from "@/app/types/Product.type";
 
 // Enhance components with motion capabilities
 const MotionCarouselItem = motion.create(CarouselItem);
@@ -21,13 +22,9 @@ const MotionCarouselItem = motion.create(CarouselItem);
  * - Screen reader support
  * - Motion animations
  */
-type Product = Prisma.ProductGetPayload<{
-  include: {
-    reviews: true;
-  };
-}>;
 
-export default function ProductCarousel({ products }: { products: Product[] }) {
+
+export default function ProductCarousel({ products }: { products: IProduct[] }) {
   return (
     <CustomCarousel>
       {products?.map((product, index) => (

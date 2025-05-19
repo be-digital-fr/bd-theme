@@ -86,9 +86,10 @@ export default async function page({
             <Image
               src={product.image}
               alt={`Detailed view of ${product.name}`}
-              width={400}
-              height={400}
+              width={800}
+              height={800}
               className="w-full h-auto"
+              priority
             />
           </figure>
 
@@ -141,11 +142,11 @@ export default async function page({
 
               <Separator className="my-4 md:my-8 bg-primary" role="separator" />
 
-              <h3
+              <p
                 className="text-3xl font-bold text-primary-dark"
                 aria-label="Product price">
                 {product.price.toFixed(2)} €
-              </h3>
+              </p>
 
               <AddToCartButton product={product} >
                 <Button size="lg" className="w-full">Add to Cart</Button>
