@@ -4,6 +4,7 @@ import { Button } from '../button';
 import { Trash2 } from 'lucide-react';
 import { useCartStore } from '@/app/store/cart-store';
 import { IProduct } from '@/app/types/Product.type';
+import { cn } from '@/app/_lib';
 
 /**
  * AlreadyInCartButtons Component
@@ -16,10 +17,12 @@ import { IProduct } from '@/app/types/Product.type';
  */
 interface AlreadyInCartButtonsProps {
   product: IProduct;
+  className?: string;
 }
 
 export default function AlreadyInCartButtons({
   product,
+  className,
 }: AlreadyInCartButtonsProps) {
   const { updateQuantity, removeItem } = useCartStore();
   const cartItem = useCartStore((state) =>
@@ -31,7 +34,7 @@ export default function AlreadyInCartButtons({
 
   return (
     <div
-      className={'grid grid-cols-2 gap-2 place-items-center'}
+      className={cn('grid grid-cols-2 gap-2 place-items-center', className)}
       role="group"
       aria-label={`Controls for ${product.name}`}>
       <Counter

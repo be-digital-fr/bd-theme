@@ -154,7 +154,7 @@ export default function AddToCartButton({
             {children}
           </div>
         ) : alreadyInCart ? (
-          <AlreadyInCartButtons product={product} />
+          <AlreadyInCartButtons className='w-max' product={product} />
         ) : (
           children
         )}
@@ -166,10 +166,10 @@ export default function AddToCartButton({
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description">
         <DialogHeader>
-          <DialogTitle id="dialog-title" className="sr-only">
+          <DialogTitle  className="sr-only">
             {product.name}
           </DialogTitle>
-          <DialogDescription id="dialog-description" className="sr-only">
+          <DialogDescription className="sr-only">
             {product.shortDescription}
           </DialogDescription>
         </DialogHeader>

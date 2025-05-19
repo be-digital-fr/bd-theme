@@ -4,21 +4,30 @@ import Image from 'next/image';
 
 // Internal components
 import { WordsPullUp } from '@/app/_components/animation';
-import { AddToCartButton, Container, OrderViaApp, TestimonialSection } from '@/app/_components/shared';
+import {
+  AddToCartButton,
+  Container,
+  OrderViaApp,
+  TestimonialSection,
+} from '@/app/_components/shared';
 import { Button, Separator } from '@/app/_components/ui';
 import FavoriteButton from '@/app/_components/ui/product-cards/favorite-icon';
 
 // Types and utilities
 import { IProduct } from '@/app/types/Product.type';
 import { catchError, unslugify } from '@/utils';
-import { PickedForYou } from "@/features/picked-for-you";
+import { PickedForYou } from '@/features/picked-for-you';
 
 /**
  * Generates metadata for the product page
  * @param {Object} params - Route parameters containing the product name
  * @returns {Object} Metadata object with title and description
  */
-export async function generateMetadata({ params }: { params: Promise<{ name: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
   const { name } = await params;
   return {
     title: `Eat a Box - ${name}`,
@@ -54,7 +63,7 @@ async function getProduct(name: string) {
  * - Price and ratings
  * - Add to cart functionality
  * - Product description and related items
- * 
+ *
  * @param {Object} props - Component props
  * @param {Promise<{ name: string }>} props.params - Route parameters
  * @returns {JSX.Element} The product details page
@@ -81,13 +90,13 @@ export default async function page({
       role="main">
       {/* Hero Banner Section */}
       <header className="px-4" aria-label="Product banner">
-        <div 
+        <div
           className="relative h-40 sm:h-52 md:h-60 w-full rounded-2xl overflow-hidden"
           role="banner">
           <Image
             src={'/images/breadcrumb.png'}
             alt={`Banner image for ${product.name}`}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill
             className="object-cover"
             priority
@@ -130,13 +139,13 @@ export default async function page({
                   className="text-3xl md:text-5xl font-bold text-primary"
                 />
               </h1>
-              <p 
-                className="text-gray-600 text-base" 
+              <p
+                className="text-gray-600 text-base"
                 role="doc-subtitle"
                 aria-label="Product description">
                 {product.shortDescription}
 
-                <span 
+                <span
                   className="text-primary-dark text-sm italic font-semibold block mt-2"
                   aria-label={`Calorie content: ${product.calories} calories`}>
                   {product.calories} calories
@@ -145,10 +154,11 @@ export default async function page({
             </header>
 
             <div className="space-y-4">
-              <Separator 
-                className="my-4 md:my-8 bg-primary" 
-                role="separator" 
-                aria-hidden="true" />
+              <Separator
+                className="my-4 md:my-8 bg-primary"
+                role="separator"
+                aria-hidden="true"
+              />
 
               {/* Ratings and Delivery Time Section */}
               <div
@@ -160,8 +170,8 @@ export default async function page({
                   aria-hidden="true">
                   <Star className="h-6 w-6 text-white" fill="white" />
                 </div>
-                <span 
-                  className="text-sm font-bold" 
+                <span
+                  className="text-sm font-bold"
                   aria-label={`Average rating: ${product.averageRating}`}>
                   {product.averageRating}
                 </span>
@@ -179,10 +189,11 @@ export default async function page({
                 </span>
               </div>
 
-              <Separator 
-                className="my-4 md:my-8 bg-primary" 
-                role="separator" 
-                aria-hidden="true" />
+              <Separator
+                className="my-4 md:my-8 bg-primary"
+                role="separator"
+                aria-hidden="true"
+              />
 
               <p
                 className="text-3xl font-bold text-primary-dark"
@@ -191,8 +202,8 @@ export default async function page({
               </p>
 
               <AddToCartButton product={product}>
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="w-full"
                   aria-label={`Add ${product.name} to cart`}>
                   Add to Cart
@@ -202,18 +213,18 @@ export default async function page({
           </div>
 
           {/* Product Description Section */}
-          <div 
+          <div
             className="space-y-4 bg-white/40 md:col-span-2 rounded-2xl shadow-md p-16"
             role="complementary"
             aria-labelledby="about-dish-title">
-            <h2 
+            <h2
               id="about-dish-title"
-              className="text-2xl font-bold" 
+              className="text-2xl font-bold"
               aria-label="About the dish">
               About the dish
             </h2>
-            <p 
-              className="text-gray-600 text-base" 
+            <p
+              className="text-gray-600 text-base"
               role="doc-subtitle"
               aria-label="Detailed product description">
               {product.description}

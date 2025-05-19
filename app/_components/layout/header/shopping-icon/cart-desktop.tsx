@@ -1,6 +1,7 @@
 import { useCartStore } from '@/app/store/cart-store';
 import {
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from '@/app/_components/ui/sheet';
@@ -29,7 +30,10 @@ export default function ShoppingCart() {
       aria-modal="true"
       aria-label="Shopping cart">
       <SheetHeader>
-        <SheetTitle>Your Cart</SheetTitle>
+        <SheetTitle className="sr-only">Your Cart</SheetTitle>
+        <SheetDescription className="sr-only">
+          Here you can see the products you have added to your cart.
+        </SheetDescription>
       </SheetHeader>
       <main 
         className="flex-1 overflow-y-auto"
