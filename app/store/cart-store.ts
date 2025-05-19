@@ -1,16 +1,24 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
+import { IProduct } from '../types/Product.type';
+import { z } from '@zod/mini';
 /**
  * CartItem Interface
  * Defines the structure of an item in the shopping cart
  */
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
+const ExtraSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  quantity: z.number(),
+});
+
+type Extra = z.infer<typeof ExtraSchema>;
+
+export interface CartItem extends IProduct {
   quantity: number;
-  image?: string;
+  removedIngredients: string[];
+  extraQuantities: Extra[];
+  comment: string;
 }
 
 /**
@@ -29,10 +37,10 @@ export interface CartStore {
 
 /**
  * Cart Store
- * 
+ *
  * A Zustand store that manages the shopping cart state with persistence.
  * Uses the persist middleware to save cart state to localStorage.
- * 
+ *
  * Features:
  * - Add items to cart (increments quantity if item exists)
  * - Remove items from cart

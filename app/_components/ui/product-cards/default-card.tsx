@@ -1,24 +1,18 @@
 import Image from 'next/image';
-import { Star } from 'lucide-react';
-import { z } from '@zod/mini';
-
-import { Prisma } from '@/lib';
-import { Card, CardContent, CardFooter } from '../card';
-import { Button } from '../button';
-import FavoriteButton from './favorite-icon';
-import AddToCartButton from './add-to-cart-button';
 import Link from 'next/link';
 import slugify from 'slugify';
+import { z } from '@zod/mini';
+import { Star } from 'lucide-react';
+
+import { Card, CardContent, CardFooter } from '../card';
+import { Button } from '../button';
+import { AddToCartButton } from '../../shared';
+import FavoriteButton from './favorite-icon';
+import { IProduct } from '@/app/types/Product.type';
 
 // Validation schema for product with included reviews
 const ProductSchema = z.object({
-  product: z.custom<
-    Prisma.ProductGetPayload<{
-      include: {
-        reviews: true;
-      };
-    }>
-  >(),
+  product: z.custom<IProduct>(),
 });
 
 // Inferred type from schema for TypeScript typing
@@ -126,7 +120,9 @@ export default function DefaultCard({ product }: Product) {
               className="w-full flex items-center justify-between gap-1"
               role="group"
               aria-label="Product actions">
-              <AddToCartButton product={product} />
+              <AddToCartButton product={product}>
+                <Button size="lg">Add to Cart</Button>
+              </AddToCartButton>
               <Button
                 data-testid={`product-price-${product.name}`}
                 variant={'ghost'}

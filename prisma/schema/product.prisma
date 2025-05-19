@@ -16,6 +16,7 @@ model Product {
   slug            String
   description     String
   shortDescription String
+  ingredients     String[]    // Array of ingredients
   price           Float
   image           String
   calories        Int?

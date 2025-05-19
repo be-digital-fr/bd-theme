@@ -2,12 +2,21 @@ import { Star } from 'lucide-react';
 import Image from 'next/image';
 
 import { WordsPullUp } from '@/app/_components/animation';
-import { Container, OrderViaApp, TestimonialSection } from '@/app/_components/shared';
+import { AddToCartButton, Container, OrderViaApp, TestimonialSection } from '@/app/_components/shared';
 import { Button, Separator } from '@/app/_components/ui';
 import FavoriteButton from '@/app/_components/ui/product-cards/favorite-icon';
 import { IProduct } from '@/app/types/Product.type';
 import { catchError, unslugify } from '@/utils';
 import { PickedForYou } from "@/features/picked-for-you";
+
+export async function generateMetadata({ params }: { params: Promise<{ name: string }> }) {
+  const { name } = await params;
+  return {
+    title: `Eat a Box - ${name}`,
+    description: `Discover the delicious and unique features of ${name} on our product details page. Perfect for food enthusiasts looking for quality and taste.`,
+  };
+}
+
 
 async function getProduct(name: string) {
   const response = await fetch(
@@ -41,9 +50,7 @@ export default async function page({
   }
 
   const product = result as IProduct;
-  console.log('====================================');
-  console.log(product);
-  console.log('====================================');
+
 
   return (
     <main
@@ -140,12 +147,9 @@ export default async function page({
                 {product.price.toFixed(2)} €
               </h3>
 
-              <Button
-                className="w-full rounded-full bg-primary"
-                size="lg"
-                aria-label={`Add ${product.name} to cart`}>
-                Add to Cart
-              </Button>
+              <AddToCartButton product={product} >
+                <Button size="lg" className="w-full">Add to Cart</Button>
+              </AddToCartButton>
             </div>
           </div>
 

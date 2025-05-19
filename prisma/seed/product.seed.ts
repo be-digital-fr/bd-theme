@@ -170,6 +170,7 @@ export default async function productSeed() {
       calories: 650,
       preparationTime: 12,
       image: `${BASE_IMAGE_URL}classic-burger.png`,
+      ingredients: ['Steak haché de bœuf', 'Pain brioché', 'Salade', 'Tomates', 'Oignons rouges', 'Sauce secrète']
     },
     {
       name: 'Cheese Burger Deluxe',
@@ -180,6 +181,7 @@ export default async function productSeed() {
       calories: 850,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}cheese-burger-deluxe.png`,
+      ingredients: ['Steak de bœuf', 'Cheddar', 'Emmental', 'Mozzarella', 'Oignons caramélisés', 'Sauce spéciale', 'Pain aux graines de sésame']
     },
     {
       name: 'Veggie Burger',
@@ -190,6 +192,7 @@ export default async function productSeed() {
       calories: 450,
       preparationTime: 10,
       image: `${BASE_IMAGE_URL}veggie-burger.png`,
+      ingredients: ['Galette de légumes', 'Avocat', 'Roquette', 'Sauce végane', 'Pain aux céréales']
     },
     {
       name: 'Spicy Burger',
@@ -200,6 +203,7 @@ export default async function productSeed() {
       calories: 750,
       preparationTime: 12,
       image: `${BASE_IMAGE_URL}spicy-burger.png`,
+      ingredients: ['Steak de bœuf épicé', 'Jalapeños', 'Sauce piquante', 'Cheddar', 'Oignons rouges', 'Laitue', 'Pain brioché']
     },
     {
       name: 'Royal Bacon Burger',
@@ -210,6 +214,7 @@ export default async function productSeed() {
       calories: 1200,
       preparationTime: 18,
       image: `${BASE_IMAGE_URL}royal-bacon-burger.png`,
+      ingredients: ['Steak de bœuf', 'Bacon', 'Cheddar', 'Emmental', 'Raclette', 'Oignons caramélisés', 'Sauce barbecue', 'Pain brioché']
     },
   ];
 
@@ -224,6 +229,7 @@ export default async function productSeed() {
       calories: 450,
       preparationTime: 10,
       image: `${BASE_IMAGE_URL}buddha-bowl.png`,
+      ingredients: ['Quinoa', 'Légumes grillés', 'Avocat', 'Houmous', 'Graines torréfiées', 'Pousses fraîches', 'Vinaigrette aux agrumes']
     },
     {
       name: 'Salade Méditerranéenne',
@@ -234,6 +240,7 @@ export default async function productSeed() {
       calories: 380,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}mediterranean-salad.png`,
+      ingredients: ['Falafels', 'Olives Kalamata', 'Tomates cerises', 'Laitues', 'Concombres', 'Oignons rouges', 'Persil plat', 'Sauce tahini']
     },
     {
       name: 'Wrap Végétalien',
@@ -244,6 +251,7 @@ export default async function productSeed() {
       calories: 420,
       preparationTime: 7,
       image: `${BASE_IMAGE_URL}vegan-wrap.png`,
+      ingredients: ['Tortilla', 'Légumes grillés', 'Houmous', 'Crudités', 'Pousses', 'Graines germées', 'Sauce tahini']
     },
     {
       name: 'Burger aux Champignons',
@@ -254,6 +262,7 @@ export default async function productSeed() {
       calories: 480,
       preparationTime: 12,
       image: `${BASE_IMAGE_URL}mushroom-burger.png`,
+      ingredients: ['Champignon portobello', 'Fromage végétal', 'Roquette', 'Sauce à la truffe', 'Pain aux céréales']
     },
     {
       name: 'Poke Bowl Végétarien',
@@ -264,6 +273,7 @@ export default async function productSeed() {
       calories: 520,
       preparationTime: 10,
       image: `${BASE_IMAGE_URL}poke-bowl.png`,
+      ingredients: ['Tofu mariné', 'Riz complet', 'Légumes croquants', 'Algues nori', 'Wakame', 'Avocat', 'Edamame', 'Sauce soja']
     },
     {
       name: 'Lasagnes aux Légumes',
@@ -274,6 +284,7 @@ export default async function productSeed() {
       calories: 580,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}vegan-lasagna.png`,
+      ingredients: ['Pâtes fraîches', 'Légumes de saison', 'Sauce tomate', 'Béchamel végétale', 'Fromages végétaux']
     },
     {
       name: 'Curry de Légumes',
@@ -284,6 +295,7 @@ export default async function productSeed() {
       calories: 460,
       preparationTime: 12,
       image: `${BASE_IMAGE_URL}vegan-curry.png`,
+      ingredients: ['Légumes de saison', 'Lait de coco', 'Épices', 'Riz basmati', 'Pain naan']
     },
     {
       name: 'Tacos Végétariens',
@@ -294,6 +306,7 @@ export default async function productSeed() {
       calories: 420,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}vegan-tacos.png`,
+      ingredients: ['Tortillas de maïs', 'Haricots noirs', 'Maïs grillé', 'Guacamole', 'Oignons rouges', 'Coriandre', 'Crème végétale']
     }
   ];
 
@@ -308,6 +321,7 @@ export default async function productSeed() {
       calories: 800,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}margherita.png`,
+      ingredients: ['Pâte à pizza', 'Sauce tomate', 'Mozzarella di bufala', 'Basilic', 'Huile d\'olive']
     },
     {
       name: 'Végétarienne',
@@ -318,6 +332,7 @@ export default async function productSeed() {
       calories: 750,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}vegetarian-pizza.png`,
+      ingredients: ['Pâte à pizza', 'Sauce tomate', 'Mozzarella', 'Champignons', 'Poivrons', 'Oignons rouges', 'Olives noires', 'Herbes fraîches']
     },
     {
       name: 'Quattro Formaggi',
@@ -328,6 +343,7 @@ export default async function productSeed() {
       calories: 900,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}quattro-formaggi.png`,
+      ingredients: ['Pâte à pizza', 'Sauce tomate', 'Mozzarella', 'Gorgonzola', 'Parmesan', 'Chèvre']
     },
     {
       name: 'Hawaïenne',
@@ -338,6 +354,7 @@ export default async function productSeed() {
       calories: 850,
       preparationTime: 15,
       image: `${BASE_IMAGE_URL}hawaiian-pizza.png`,
+      ingredients: ['Pâte à pizza', 'Sauce tomate', 'Mozzarella', 'Jambon', 'Ananas']
     },
     {
       name: 'Calzone',
@@ -348,6 +365,7 @@ export default async function productSeed() {
       calories: 950,
       preparationTime: 18,
       image: `${BASE_IMAGE_URL}calzone.png`,
+      ingredients: ['Pâte à pizza', 'Sauce tomate', 'Mozzarella', 'Jambon', 'Champignons']
     }
   ];
 
@@ -362,6 +380,7 @@ export default async function productSeed() {
       calories: 140,
       preparationTime: 1,
       image: `${BASE_IMAGE_URL}coca-cola.png`,
+      ingredients: ['Eau gazéifiée', 'Sucre', 'Colorant caramel', 'Acide phosphorique', 'Extraits végétaux', 'Caféine']
     },
     {
       name: 'Limonade Maison',
@@ -372,6 +391,7 @@ export default async function productSeed() {
       calories: 120,
       preparationTime: 2,
       image: `${BASE_IMAGE_URL}limonade-maison.png`,
+      ingredients: ['Citrons pressés', 'Menthe fraîche', 'Sirop maison', 'Eau']
     },
     {
       name: 'Ice Tea',
@@ -382,6 +402,7 @@ export default async function productSeed() {
       calories: 90,
       preparationTime: 1,
       image: `${BASE_IMAGE_URL}ice-tea.png`,
+      ingredients: ['Thé infusé', 'Sirop de pêche', 'Eau', 'Sucre']
     },
     {
       name: 'Smoothie Fruits Rouges',
@@ -392,6 +413,7 @@ export default async function productSeed() {
       calories: 180,
       preparationTime: 3,
       image: `${BASE_IMAGE_URL}strawberry-smoothie.png`,
+      ingredients: ['Fruits rouges', 'Yaourt grec', 'Sucre']
     },
     {
       name: 'Milkshake Chocolat',
@@ -402,6 +424,7 @@ export default async function productSeed() {
       calories: 450,
       preparationTime: 4,
       image: `${BASE_IMAGE_URL}chocolate-milkshake.png`,
+      ingredients: ['Chocolat belge', 'Lait', 'Chantilly', 'Copeaux de chocolat']
     }
   ];
 
@@ -416,6 +439,7 @@ export default async function productSeed() {
       calories: 350,
       preparationTime: 2,
       image: `${BASE_IMAGE_URL}tiramisu.png`,
+      ingredients: ['Biscuits', 'Café', 'Mascarpone', 'Cacao']
     },
     {
       name: 'Cheesecake',
@@ -426,6 +450,7 @@ export default async function productSeed() {
       calories: 420,
       preparationTime: 2,
       image: `${BASE_IMAGE_URL}cheesecake.png`,
+      ingredients: ['Biscuits graham', 'Fromage à la crème', 'Coulis de fruits rouges']
     },
     {
       name: 'Crème Brûlée',
@@ -436,6 +461,7 @@ export default async function productSeed() {
       calories: 280,
       preparationTime: 2,
       image: `${BASE_IMAGE_URL}creme-brulee.png`,
+      ingredients: ['Crème', 'Vanille', 'Sucre', 'Caramel']
     },
     {
       name: 'Fondant au Chocolat',
@@ -446,6 +472,7 @@ export default async function productSeed() {
       calories: 380,
       preparationTime: 3,
       image: `${BASE_IMAGE_URL}chocolate-fondant.png`,
+      ingredients: ['Chocolat', 'Œufs', 'Beurre', 'Sucre', 'Glace vanille']
     },
     {
       name: 'Tarte aux Pommes',
@@ -456,6 +483,7 @@ export default async function productSeed() {
       calories: 320,
       preparationTime: 2,
       image: `${BASE_IMAGE_URL}apple-pie.png`,
+      ingredients: ['Pommes', 'Pâte feuilletée', 'Sucre', 'Beurre']
     }
   ];
 
@@ -470,6 +498,7 @@ export default async function productSeed() {
       calories: 450,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}cesar-salad.png`,
+      ingredients: ['Laitue', 'Croûtons', 'Parmesan', 'Sauce César', 'Poulet grillé']
     },
     {
       name: 'Salade Niçoise',
@@ -480,6 +509,7 @@ export default async function productSeed() {
       calories: 420,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}niciose-salad.png`,
+      ingredients: ['Thon', 'Olives niçoises', 'Tomates', 'Anchois', 'Œufs', 'Poivrons']
     },
     {
       name: 'Salade Végétarienne',
@@ -490,6 +520,7 @@ export default async function productSeed() {
       calories: 380,
       preparationTime: 7,
       image: `${BASE_IMAGE_URL}vegan-salad.png`,
+      ingredients: ['Légumes de saison', 'Avocat', 'Noix', 'Vinaigrette balsamique']
     },
     {
       name: 'Salade Quinoa',
@@ -500,6 +531,7 @@ export default async function productSeed() {
       calories: 400,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}quinoa-salad.png`,
+      ingredients: ['Quinoa', 'Légumes grillés', 'Feta', 'Vinaigrette citron']
     },
     {
       name: 'Salade César Végétarienne',
@@ -510,6 +542,7 @@ export default async function productSeed() {
       calories: 380,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}vegan-salad-2.png`,
+      ingredients: ['Laitue', 'Croûtons', 'Parmesan', 'Sauce César', 'Tofu grillé']
     }
   ];
 
@@ -524,6 +557,7 @@ export default async function productSeed() {
       calories: 650,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}club-sandwich.png`,
+      ingredients: ['Poulet grillé', 'Bacon', 'Laitue', 'Tomate', 'Mayonnaise', 'Pain toasté']
     },
     {
       name: 'Sandwich Végétarien',
@@ -534,6 +568,7 @@ export default async function productSeed() {
       calories: 450,
       preparationTime: 7,
       image: `${BASE_IMAGE_URL}vegan-sandwich.png`,
+      ingredients: ['Légumes grillés', 'Houmous', 'Avocat', 'Roquette', 'Pain']
     },
     {
       name: 'BLT',
@@ -544,6 +579,7 @@ export default async function productSeed() {
       calories: 580,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}blt-sandwich.png`,
+      ingredients: ['Bacon', 'Laitue', 'Tomate', 'Mayonnaise', 'Pain']
     },
     {
       name: 'Sandwich Thon',
@@ -554,6 +590,7 @@ export default async function productSeed() {
       calories: 520,
       preparationTime: 7,
       image: `${BASE_IMAGE_URL}vegan-sandwich.png`,
+      ingredients: ['Thon', 'Mayonnaise', 'Cornichons', 'Laitue', 'Pain']
     },
     {
       name: 'Sandwich Falafel',
@@ -564,6 +601,7 @@ export default async function productSeed() {
       calories: 480,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}vegan-sandwich-2.png`,
+      ingredients: ['Falafel', 'Houmous', 'Légumes croquants', 'Sauce tahini', 'Pain']
     }
   ];
 
@@ -578,6 +616,7 @@ export default async function productSeed() {
       calories: 320,
       preparationTime: 10,
       image: `${BASE_IMAGE_URL}onion-soup.png`,
+      ingredients: ['Oignons', 'Fromage', 'Croûtons', 'Bouillon']
     },
     {
       name: 'Soupe de Potiron',
@@ -588,6 +627,7 @@ export default async function productSeed() {
       calories: 280,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}pumpkin-soup.png`,
+      ingredients: ['Potiron', 'Crème fraîche', 'Graines de courge', 'Bouillon']
     },
     {
       name: 'Soupe Tomate Basilic',
@@ -598,6 +638,7 @@ export default async function productSeed() {
       calories: 250,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}tomato-soup.png`,
+      ingredients: ['Tomates', 'Basilic', 'Crème de coco', 'Bouillon']
     },
     {
       name: 'Soupe de Lentilles',
@@ -608,6 +649,7 @@ export default async function productSeed() {
       calories: 350,
       preparationTime: 12,
       image: `${BASE_IMAGE_URL}lentil-soup.png`,
+      ingredients: ['Lentilles', 'Légumes de saison', 'Épices', 'Bouillon']
     },
     {
       name: 'Soupe Miso',
@@ -618,6 +660,7 @@ export default async function productSeed() {
       calories: 180,
       preparationTime: 8,
       image: `${BASE_IMAGE_URL}miso-soup.png`,
+      ingredients: ['Miso', 'Tofu', 'Algues', 'Champignons shiitake', 'Bouillon']
     }
   ];
 

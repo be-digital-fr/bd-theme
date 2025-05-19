@@ -19,3 +19,6 @@ export * from './skeleton';
 export * from './badge';
 export * from './progress'
 export * from './pagination'
+export * from './checkbox'
+export * from './textarea'
+export * from './counter'
